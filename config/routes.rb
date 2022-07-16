@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'bugs/index'
+  get 'bugs/show'
+  get 'bugs/edit'
+  get 'bugs/update'
   root to: 'users#index'
   resources :projects
   devise_for :users
