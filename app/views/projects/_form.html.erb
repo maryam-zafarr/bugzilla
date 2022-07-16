@@ -1,0 +1,22 @@
+<%= form_with model: @project, remote: true do |form| %>
+  <p>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </p>
+
+  <p>
+    <%= form.label :description %>
+    <%= form.text_field :description %>
+  </p>
+
+ <p>
+    <%= form.label :assign_to %>
+    <%= form.collection_select(:user_ids, User.where.not(user_type: 'Manager'), :id, :name, {:include_hidden => false}, { :multiple => true }) %>
+  </p>
+
+  <%= form.hidden_field :manager_id , :value=>current_user.id %>
+
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>

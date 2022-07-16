@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Application Controller class
+# Application Controller lass
 class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
