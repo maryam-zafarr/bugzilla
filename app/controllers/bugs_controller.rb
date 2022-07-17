@@ -21,8 +21,6 @@ class BugsController < ApplicationController
     @project = Project.find(params[:project_id])
     @bug = @project.bugs.create(bug_params)
 
-    @bug.assignee = User.find(params[:bug][:assignee_id])
-
     respond_to do |format|
       if @bug.save!
         format.html { redirect_to project_bug_path(@bug.project, @bug), notice: 'Bug was successfully created.' }
@@ -55,6 +53,25 @@ class BugsController < ApplicationController
     respond_to do |format|
       format.html { redirect_to @project, notice: 'Bug was sucessfully deleted.' }
       format.json { head :no_content }
+    end
+  end
+
+  def assign
+    @bug = Bug.find(params[:bug_id])
+    if @bug.assignee_id.nil?
+      assignee = User.find(current_user.id).id
+      @bug.update_column(:assignee_id, assignee)
+    else
+      redirect_to project_bug_path(@bug.project, @bug), flash: { notice: 'Bug already has an assignee' }
+    end
+  end
+
+  def change
+    @bug = Bug.find(params[:bug_id])
+    if @bug.status == 'New'
+      @bug.update_column(:status, 'Started')
+    else
+      @bug.update_column(:status, 'Resolved')
     end
   end
 

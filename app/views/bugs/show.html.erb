@@ -1,7 +1,25 @@
+<p class="alert"><%= flash[:notice] %></p>
+
 <h2><%= @bug.title %></h2>
 
 <p>Type: <%= @bug.bug_type %></p>
 <p>Status: <%= @bug.status %></p>
 <p>Deadline: <%= @bug.deadline %></p>
 <p>Reporter: <%= @bug.reporter.name %></p>
-<p>Assignee: <%= @bug.assignee.name %></p>
+
+<% if @bug.assignee %>
+  <p>Assignee: <%= @bug.assignee.name %></p>
+<% else %>
+  <p>Assignee: Pending</p>
+<% end %>
+
+<%= button_to 'Assign Bug', project_bug_assign_path(:bug_id => @bug.id), method: :post %>
+<br>
+
+<% if @bug.status == 'New' %>
+  <%= button_to 'Mark as Started', project_bug_change_path(:bug_id => @bug.id), method: :post %>
+<% elsif @bug.status == 'Started' %>
+  <%= button_to 'Mark as Resolved', project_bug_change_path(:bug_id => @bug.id), method: :post %>
+<% else %>
+  <%= link_to 'Change Status', edit_project_bug_path(@project, @bug) %>
+<% end%>

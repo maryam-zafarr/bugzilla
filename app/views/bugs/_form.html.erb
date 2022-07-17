@@ -9,11 +9,19 @@
     <%= form.select :bug_type, ['Bug','Feature']%>
   </p>
 
-  <% if @bug.id %>
+
+
+  <% if @bug.id && @bug.bug_type == 'Bug' %>
   <p>
     <%= form.label :status %>
     <%= form.select :status , ['New', 'Started', 'Resolved'] %>
-    <!-- FOR FEATURE <%= form.select :status , ['New', 'Started', 'Completed'] %> -->
+  </p>
+  <% end %>
+
+<% if @bug.id && @bug.bug_type == 'Feature' %>
+  <p>
+    <%= form.label :status %>
+    <%= form.select :status , ['New', 'Started', 'Completed'] %>
   </p>
   <% end %>
 
@@ -22,10 +30,10 @@
     <%= form.date_field :deadline, min: Date.today%>
   </p>
 
-  <p>
+  <!-- <p>
     <%= form.label :assignee %>
     <%= form.collection_select(:assignee_id, User.where(user_type: 'Developer').where("id  in (?)", @project.users.ids), :id, :name, {:include_hidden => false}, { :multiple => false }) %>
-  </p>
+  </p> -->
 
   <% if !@bug.id %>
   <%= form.hidden_field :status, :value=>'New'%>
