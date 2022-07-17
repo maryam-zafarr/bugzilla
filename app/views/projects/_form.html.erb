@@ -11,7 +11,7 @@
 
  <p>
     <%= form.label :assign_to %>
-    <%= form.collection_select(:user_ids, User.where.not(user_type: 'Manager'), :id, :name, {:include_hidden => false}, { :multiple => true }) %>
+    <%= form.collection_select(:user_ids, User.where.not(user_type: 'Manager'), :id, :name_with_title,  {:include_hidden => false}, {:multiple => true}) %>
   </p>
 
   <%= form.hidden_field :manager_id , :value=>current_user.id %>

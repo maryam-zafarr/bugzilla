@@ -1,2 +1,7 @@
-<h1>Bugs#show</h1>
-<p>Find me in app/views/bugs/show.html.erb</p>
+<h2><%= @bug.title %></h2>
+
+<p>Type: <%= @bug.bug_type %></p>
+<p>Status: <%= @bug.status %></p>
+<p>Deadline: <%= @bug.deadline %></p>
+<p>Reporter: <%= @bug.reporter.name %></p>
+<p>Assignee: <%= @bug.assignee.name %></p>

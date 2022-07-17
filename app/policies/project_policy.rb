@@ -17,4 +17,16 @@ class ProjectPolicy < ApplicationPolicy
   def create?
     @user.user_type = 'Manager'
   end
+
+  def edit?
+    user.user_type == 'Manager'
+  end
+
+  def update?
+    user.user_type == 'Manager'
+  end
+
+  def destroy?
+    user.user_type == 'Manager'
+  end
 end

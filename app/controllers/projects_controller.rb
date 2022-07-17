@@ -1,5 +1,4 @@
 class ProjectsController < ApplicationController
-  include Pundit
   before_action :set_project, only: %i[edit update show destory]
   before_action :authenticate_user!
 
@@ -35,10 +34,13 @@ class ProjectsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    authorize @project
+  end
 
   def update
     @project.update(project_params)
+    authorize @project
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was sucessfully updated.' }
@@ -52,9 +54,10 @@ class ProjectsController < ApplicationController
 
   def destroy
     @project.destroy
+    authorize @project
 
     respond_to do |format|
-      format.html { redirect_to projects_path, notice: 'Project was successfully destroyed' }
+      format.html { redirect_to projects_path, notice: 'Project was successfully deleted' }
       format.json { head :no_content } # HTTP status code 200 with empty body
     end
   end

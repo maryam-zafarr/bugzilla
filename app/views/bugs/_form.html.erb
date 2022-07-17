@@ -1,0 +1,39 @@
+<%= form_with model: [@project, @bug], remote: true do |form| %>
+  <p>
+    <%= form.label :title %>
+    <%= form.text_field :title %>
+  </p>
+
+  <p>
+    <%= form.label :bug_type, 'Category' %>
+    <%= form.select :bug_type, ['Bug','Feature']%>
+  </p>
+
+  <% if @bug.id %>
+  <p>
+    <%= form.label :status %>
+    <%= form.select :status , ['New', 'Started', 'Resolved'] %>
+    <!-- FOR FEATURE <%= form.select :status , ['New', 'Started', 'Completed'] %> -->
+  </p>
+  <% end %>
+
+  <p>
+    <%= form.label :deadline %>
+    <%= form.date_field :deadline, min: Date.today%>
+  </p>
+
+  <p>
+    <%= form.label :assignee %>
+    <%= form.collection_select(:assignee_id, User.where(user_type: 'Developer').where("id  in (?)", @project.users.ids), :id, :name, {:include_hidden => false}, { :multiple => false }) %>
+  </p>
+
+  <% if !@bug.id %>
+  <%= form.hidden_field :status, :value=>'New'%>
+  <% end %>
+
+  <%= form.hidden_field :reporter_id , :value=>current_user.id %>
+
+  <p>
+    <%= form.submit %>
+  </p>
+<% end %>

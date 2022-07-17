@@ -4,10 +4,12 @@
 <p><strong>Project Manager: </strong><%= @project.manager.name %></p>
 
 <p>
-  <strong>Assigned to: </strong>
+  <strong>Project Team: </strong>
   <% @project.users.distinct.each do |user| %>
     <%= user.name %> (<%= user.user_type%>)
   <% end %>
 </p>
-<p><strong>QAs: </strong>TBD</p>
 
+<%= link_to 'Back', projects_path%> <br>
+<%= link_to 'View Bugs', project_bugs_path(@project.id) %> <br>
+<%= link_to 'Add Bug', new_project_bug_path(@project.id) %>
