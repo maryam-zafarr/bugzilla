@@ -10,6 +10,7 @@ class ProjectsController < ApplicationController
     else
       @projects = current_user.projects.distinct
     end
+    session[:projects] = @projects
   end
 
   def show
