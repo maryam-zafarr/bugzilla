@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-  root to: 'devise/sessions#create'
+  root to: 'dashboard#index'
   devise_for :users
   resources :projects do
     resources :bugs do
