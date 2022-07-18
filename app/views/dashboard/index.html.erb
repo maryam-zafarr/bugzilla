@@ -1,0 +1,7 @@
+<% if current_user.user_type == 'Manager' %>
+  <%= render 'manager' %>
+<% elsif current_user.user_type == 'Developer' %>
+  <%= render 'developer' %>
+<% else %>
+  <%= render 'qa' %>
+<% end %>

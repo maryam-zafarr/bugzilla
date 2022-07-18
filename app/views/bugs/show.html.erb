@@ -20,6 +20,4 @@
   <%= button_to 'Mark as Started', project_bug_change_path(:bug_id => @bug.id), method: :post %>
 <% elsif @bug.status == 'Started' %>
   <%= button_to 'Mark as Resolved', project_bug_change_path(:bug_id => @bug.id), method: :post %>
-<% else %>
-  <%= link_to 'Change Status', edit_project_bug_path(@project, @bug) %>
 <% end%>

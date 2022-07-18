@@ -2,19 +2,28 @@
 
 # Bug class to add bugs/ features to projects
 class BugsController < ApplicationController
-  before_action :set_bug, only: %i[edit update show destory]
+  before_action :set_bug, only: %i[edit update destory]
   before_action :authenticate_user!
+
 
   def index
     @project = Project.find(params[:project_id])
-    @bugs = @project.bugs
+    if (current_user.user_type == 'Quality Assurance Engineer' || (current_user.id).in?(@project.users.ids) || (current_user.id == @project.manager_id))
+      @bugs = @project.bugs
+    else
+      redirect_to project_path(@project)
+    end
   end
 
-  def show; end
+  def show
+    @bug = Bug.find(params[:id])
+    authorize @bug
+  end
 
   def new
     @project = Project.find(params[:project_id])
     @bug = @project.bugs.new
+    authorize @bug
   end
 
   def create
@@ -32,10 +41,13 @@ class BugsController < ApplicationController
     end
   end
 
-  def edit; end
+  def edit
+    authorize @bug
+  end
 
   def update
     @bug.update(bug_params)
+    authorize @bug
     respond_to do |format|
       if @bug.save
         format.html { redirect_to project_bug_path(@bug.project, @bug), notice: 'Bug was successfully updated.' }
@@ -49,6 +61,7 @@ class BugsController < ApplicationController
 
   def destroy
     @bug.destroy
+    authorize @bug
 
     respond_to do |format|
       format.html { redirect_to @project, notice: 'Bug was sucessfully deleted.' }
@@ -58,6 +71,7 @@ class BugsController < ApplicationController
 
   def assign
     @bug = Bug.find(params[:bug_id])
+    authorize @bug
     if @bug.assignee_id.nil?
       assignee = User.find(current_user.id).id
       @bug.update_column(:assignee_id, assignee)

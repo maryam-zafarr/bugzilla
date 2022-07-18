@@ -1,16 +1,22 @@
 class ProjectsController < ApplicationController
-  before_action :set_project, only: %i[edit update show destory]
+  before_action :set_project, only: %i[edit update destroy]
   before_action :authenticate_user!
 
   def index
     if current_user.user_type == 'Manager'
       @projects = Project.where(manager_id: current_user.id)
+    elsif current_user.user_type == 'Quality Assurance Engineer'
+      @all_projects = Project.all
+      @projects = current_user.projects.distinct
     else
       @projects = current_user.projects.distinct
     end
   end
 
-  def show; end
+  def show
+    @project = Project.find(params[:id])
+    authorize @project
+  end
 
   def new
     @project = current_user.projects.build
