@@ -12,10 +12,26 @@
  *
  //= require 'users.scss'
  //= require 'dashboard.scss'
+ //=require 'home.scss'
  */
+
  @import 'bootstrap';
 
  body {
   margin: 0;
   padding: 0;
  }
+
+ .c-nav {
+  color: rgb(23, 29, 36) !important;
+  height: 30px !important;
+}
+
+.c-active{
+  font-weight: bold;
+}
+
+.nav > li > a:hover{
+  background-color:rgb(216, 224, 225);
+}
+

@@ -3,7 +3,6 @@
 # Bug class to add bugs/ features to projects
 class BugsController < ApplicationController
   before_action :set_bug, only: %i[edit update destory]
-  before_action :authenticate_user!
 
 
   def index

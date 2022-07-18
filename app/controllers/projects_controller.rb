@@ -1,6 +1,5 @@
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[edit update destroy]
-  before_action :authenticate_user!
 
   def index
     if current_user.user_type == 'Manager'
