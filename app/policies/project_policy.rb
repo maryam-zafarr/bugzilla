@@ -26,7 +26,7 @@ class ProjectPolicy < ApplicationPolicy
   # end
 
   def show?
-    user.id == project.manager_id || (user.id).in?(project.users.ids)
+    user.id == project.manager_id || (user.id).in?(project.users.ids) || user.user_type == 'Quality Assurance Engineer'
   end
 
   def new?

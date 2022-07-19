@@ -17,6 +17,6 @@
   <%= form.hidden_field :manager_id , :value=>current_user.id %>
 
   <div class='mb-4'>
-    <%= form.submit "Create Project", class: 'btn-warning rounded border-0 p-2 pr-3 pl-3' %>
+    <%= form.submit "#{action_name} Project", class: 'btn-warning rounded border-0 p-2 pr-3 pl-3' %>
   </div>
 <% end %>

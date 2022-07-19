@@ -38,11 +38,6 @@
     <%= form.date_field :deadline, min: Date.today, class: 'input_f'%>
   </div>
 
-  <!-- <div class='mb-4'>
-    <%= form.label :assignee %>
-    <%= form.collection_select(:assignee_id, User.where(user_type: 'Developer').where("id  in (?)", @project.users.ids), :id, :name, {:include_hidden => false}, { :multiple => false }) %>
-  </div> -->
-
   <% if !@bug.id %>
   <%= form.hidden_field :status, :value=>'New'%>
   <% end %>
@@ -50,6 +45,6 @@
   <%= form.hidden_field :reporter_id , :value=>current_user.id %>
 
   <div class='mb-4'>
-    <%= form.submit %>
+    <%= form.submit "#{action_name} Project", class: 'btn-warning rounded border-0 p-2 pr-3 pl-3'%>
   </div>
 <% end %>

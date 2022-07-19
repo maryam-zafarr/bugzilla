@@ -37,4 +37,7 @@ class BugPolicy < ApplicationPolicy
   def assign?
     (user.user_type == 'Developer') &&  ((user.id).in?(bug.project.users.ids))
   end
+
+  def change?
+  end
 end

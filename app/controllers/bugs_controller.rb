@@ -77,15 +77,21 @@ class BugsController < ApplicationController
     else
       redirect_to project_bug_path(@bug.project, @bug), flash: { notice: 'Bug already has an assignee' }
     end
+    redirect_back(fallback_location: root_path)
   end
 
   def change
     @bug = Bug.find(params[:bug_id])
     if @bug.status == 'New'
       @bug.update_column(:status, 'Started')
-    else
+    elsif  @bug.status == 'Started' && @bug.bug_type == 'Bug'
       @bug.update_column(:status, 'Resolved')
+    elsif  @bug.status == 'Started' && @bug.bug_type == 'Feature'
+      @bug.update_column(:status, 'Resolved')
+    else
+      @bug.update_column(:status, 'Started')
     end
+    redirect_back(fallback_location: root_path)
   end
 
   private

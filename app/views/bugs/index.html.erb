@@ -1,12 +1,42 @@
+
+<div class='container mt-4'>
 <h1>Bugs</h1>
-
-<% @bugs.each do |bug| %>
-  <p>
-    <strong>ISSUE P<%= @project.id %>-B<%= bug.id %></strong>
-  </p>
-
-  <p><%= bug.title %></p>
-
-  <%= link_to 'View', project_bug_path(bug.project, bug) %>
-  <hr>
-<% end %>
+<table class="table align-items-center">
+  <thead class="thead">
+    <tr class='head-row'>
+      <th>Bug ID</th>
+      <th>Title</th>
+      <th>Reporter</th>
+      <th>Assignee</th>
+      <th>Status</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @bugs.each do |bug| %>
+      <tr>
+        <td><%= bug.id %></td>
+        <td><%= bug.title %></td>
+        <td><%= bug.reporter.name %></td>
+        <td>
+          <% if bug.assignee != nil %>
+            <%= bug.assignee.name %>
+          <% else %>
+            Unassigned
+          <% end %>
+        </td>
+        <td>
+          <% if bug.status == 'New'%>
+            <span class="badge badge-pill badge-info"><%= bug.status %></span>
+          <% elsif bug.status == 'Started' %>
+            <span class="badge badge-pill badge-warning"><%= bug.status %></span>
+          <% else %>
+            <span class="badge badge-pill badge-success"><%= bug.status %></span>
+          <% end %>
+          </td>
+        <td><%= link_to 'View', project_bug_path(bug.project, bug), class:'btn btn-outline-info pt-0 pb-0' %></td>
+      </tr>
+      <% end %>
+  </tbody>
+</table>
+</div>

@@ -1,35 +1,68 @@
-<p class="alert"><%= flash[:notice] %></p>
+<div class='container project-details mt-4'>
 
-<h2><%= @bug.title %></h2>
+  <div class='row'>
+    <div class='col-7'>
+      <h4><i class='fa fa-bug fa-md'></i> <%= @bug.title %></h4>
+    </div>
 
-<p>Type: <%= @bug.bug_type %></p>
+    <div class='col-5 text-right'>
+      <% if @bug.assignee == nil && current_user.user_type == 'Developer' && (current_user.id).in?(@bug.project.users.ids) %>
+        <%= button_to 'Assign to Self', project_bug_assign_path(:bug_id => @bug.id), method: :post, class:'btn btn-outline-info'  %>
+      <% end %>
 
-<% if @bug.description %>
-<p>Description: <%= @bug.description %></p>
-<% end %>
+      <% if @bug.assignee == current_user %>
+        <% if @bug.status == 'New' %>
+          <%= button_to 'Mark as Started', project_bug_change_path(:bug_id => @bug.id), method: :post, class:'btn btn-outline-success' %>
+        <% elsif @bug.status == 'Started' && @bug.bug_type == 'Bug' %>
+          <%= button_to 'Mark as Resolved', project_bug_change_path(:bug_id => @bug.id), method: :post, class:'btn btn-outline-success' %>
+        <% elsif @bug.status == 'Started' && @bug.bug_type == 'Feature' %>
+          <%= button_to 'Mark as Resolved', project_bug_change_path(:bug_id => @bug.id), method: :post, class:'btn btn-outline-success' %>
+        <% else %>
+          <%= button_to 'Mark Started', project_bug_change_path(:bug_id => @bug.id), method: :post, class:'btn btn-outline-success' %>
+        <% end%>
+      <% end %>
 
-<% if @bug.screenshot %>
-  <p>Screenshot of Bug:</p>
-  <div style='width: 400px; height:auto'>
-    <%= image_tag(@bug.screenshot, style: 'width: 100%') %>
+      <% if @bug.reporter == current_user %>
+        <%= link_to 'Edit Bug', edit_project_bug_path(@bug.project, @bug), class:'btn btn-outline-info'  %>
+      <% end %>
+    </div>
   </div>
-<% end %>
 
-<p>Status: <%= @bug.status %></p>
-<p>Deadline: <%= @bug.deadline %></p>
-<p>Reporter: <%= @bug.reporter.name %></p>
+  <div class='row mt-4 mb-2'>
+    <div class='col-6'>
+      <h5 class='mb-4'><i class='fa fa-list-alt'></i> Bug Details</h5>
+      <p><strong>Type: </strong><span class='badge badge-success'><%= @bug.bug_type %></span></p>
+      <p><strong>Status: </strong><span class='badge badge-warning'><%= @bug.status %></span></p>
+      <p><strong>Deadline: </strong><%= @bug.deadline %></p>
+      <p><strong>Reporter: </strong><%= @bug.reporter.name %></p>
 
-<% if @bug.assignee %>
-  <p>Assignee: <%= @bug.assignee.name %></p>
-<% else %>
-  <p>Assignee: Pending</p>
-<% end %>
+      <% if @bug.assignee %>
+        <p><strong>Assignee: </strong> <%= @bug.assignee.name %></p>
+      <% else %>
+        <p><strong>Assignee: </strong> Pending</p>
+      <% end %>
 
-<%= button_to 'Assign Bug', project_bug_assign_path(:bug_id => @bug.id), method: :post %>
-<br>
+    </div>
+    <div class='col-6 mt-4 pt-3'>
+      <% if !@bug.description.blank? %>
+        <p><strong>Description: </strong><%= @bug.description %></p>
+      <% end %>
+      <% if @bug.screenshot.attached? %>
+        <p><strong>Screenshot </strong></p>
+        <div style='width: 400px; height:auto'>
+          <%= image_tag(@bug.screenshot, style: 'width: 100%')%>
+        </div>
+      <% end %>
+    </div>
+  </div>
 
-<% if @bug.status == 'New' %>
-  <%= button_to 'Mark as Started', project_bug_change_path(:bug_id => @bug.id), method: :post %>
-<% elsif @bug.status == 'Started' %>
-  <%= button_to 'Mark as Resolved', project_bug_change_path(:bug_id => @bug.id), method: :post %>
-<% end%>
+
+
+
+
+
+
+
+  <br>
+
+</div>

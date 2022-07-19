@@ -13,3 +13,13 @@
 .desc {
   height: 20vh;
 }
+
+.thead {
+  border-bottom: 0.1px;
+}
+
+.table thead th {
+  padding-top: 4px;
+  padding-bottom: 4px;
+  font-weight: 500;
+}
