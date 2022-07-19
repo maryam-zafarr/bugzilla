@@ -1,12 +1,21 @@
 # frozen_string_literal: true
 
 class Bug < ApplicationRecord
+  belongs_to :project
+  belongs_to :reporter, class_name: 'User', foreign_key: 'reporter_id'
+  belongs_to :assignee, class_name: 'User', foreign_key: 'assignee_id', optional: true
+
+  has_one_attached :screenshot
+
   validates :title, presence: true
   validates :bug_type, presence: true
   validates :status, presence: true
   validates :deadline, presence: true
+  validate :correct_image_type
 
-  belongs_to :project
-  belongs_to :reporter, class_name: 'User', foreign_key: 'reporter_id'
-  belongs_to :assignee, class_name: 'User', foreign_key: 'assignee_id', optional: true
+  def correct_image_type
+    if screenshot.attached? && !screenshot.content_type.in?(%w(image/png image/gif))
+      errors.add(:screenshot, 'must be png or gif')
+    end
+  end
 end

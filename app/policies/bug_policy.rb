@@ -23,10 +23,10 @@ class BugPolicy < ApplicationPolicy
   end
 
   def edit?
-    user.id == bug.reporter_id
+    user.id == bug.reporter_id || bug.assignee_id
   end
 
-  def edit?
+  def update?
     user.id == bug.reporter_id || bug.assignee_id
   end
 

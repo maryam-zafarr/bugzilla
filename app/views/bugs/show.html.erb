@@ -3,6 +3,18 @@
 <h2><%= @bug.title %></h2>
 
 <p>Type: <%= @bug.bug_type %></p>
+
+<% if @bug.description %>
+<p>Description: <%= @bug.description %></p>
+<% end %>
+
+<% if @bug.screenshot %>
+  <p>Screenshot of Bug:</p>
+  <div style='width: 400px; height:auto'>
+    <%= image_tag(@bug.screenshot, style: 'width: 100%') %>
+  </div>
+<% end %>
+
 <p>Status: <%= @bug.status %></p>
 <p>Deadline: <%= @bug.deadline %></p>
 <p>Reporter: <%= @bug.reporter.name %></p>

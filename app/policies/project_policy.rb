@@ -38,14 +38,14 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def edit?
-    user.user_type == 'Manager'
+    user.id == project.manager_id
   end
 
   def update?
-    user.user_type == 'Manager'
+    user.id == project.manager_id
   end
 
   def destroy?
-    user.user_type == 'Manager'
+    user.id == project.manager_id
   end
 end

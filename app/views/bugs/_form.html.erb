@@ -1,39 +1,47 @@
 <%= form_with model: [@project, @bug], remote: true do |form| %>
-  <p>
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-  </p>
+  <div class='mb-4'>
+    <%= form.label :title, class: 'label_f'  %><br>
+    <%= form.text_field :title, class: 'input_f' %>
+  </div>
 
-  <p>
-    <%= form.label :bug_type, 'Category' %>
+  <div class='mb-4'>
+    <%= form.label :bug_type, 'Category', class: 'label_f'  %><br>
     <%= form.select :bug_type, ['Bug','Feature']%>
-  </p>
+  </div>
 
+  <div class='mb-4'>
+    <%= form.label :description, class: 'label_f'  %><br>
+    <%= form.text_area :description, class: 'input_f'%>
+  </div>
 
+  <div class='mb-4'>
+    <%= form.label :screenshot, class: 'label_f'  %><br>
+    <%= form.file_field :screenshot, class: 'input_f'%>
+  </div>
 
   <% if @bug.id && @bug.bug_type == 'Bug' %>
-  <p>
-    <%= form.label :status %>
-    <%= form.select :status , ['New', 'Started', 'Resolved'] %>
-  </p>
+  <div class='mb-4'>
+    <%= form.label :status, class: 'label_f'  %><br>
+    <%= form.select :status , ['New', 'Started', 'Resolved'], class: 'input_f' %>
+  </div>
   <% end %>
 
 <% if @bug.id && @bug.bug_type == 'Feature' %>
-  <p>
-    <%= form.label :status %>
-    <%= form.select :status , ['New', 'Started', 'Completed'] %>
-  </p>
+  <div class='mb-4'>
+    <%= form.label :status, class: 'label_f'  %><br>
+    <%= form.select :status , ['New', 'Started', 'Completed'], class: 'input_f' %>
+  </div>
   <% end %>
 
-  <p>
-    <%= form.label :deadline %>
-    <%= form.date_field :deadline, min: Date.today%>
-  </p>
+  <div class='mb-4'>
+    <%= form.label :deadline, class: 'label_f'  %><br>
+    <%= form.date_field :deadline, min: Date.today, class: 'input_f'%>
+  </div>
 
-  <!-- <p>
+  <!-- <div class='mb-4'>
     <%= form.label :assignee %>
     <%= form.collection_select(:assignee_id, User.where(user_type: 'Developer').where("id  in (?)", @project.users.ids), :id, :name, {:include_hidden => false}, { :multiple => false }) %>
-  </p> -->
+  </div> -->
 
   <% if !@bug.id %>
   <%= form.hidden_field :status, :value=>'New'%>
@@ -41,7 +49,7 @@
 
   <%= form.hidden_field :reporter_id , :value=>current_user.id %>
 
-  <p>
+  <div class='mb-4'>
     <%= form.submit %>
-  </p>
+  </div>
 <% end %>
