@@ -26,14 +26,19 @@
           <p><%= user.name %> (<%= user.user_type%>)</p>
         <% end %>
       </p>
+
+      <p>
+        <strong>Total Bugs: </strong><%= @project.bugs.count %>
+      </p>
+
+      <%= link_to 'View Bugs', project_bugs_path(@project.id), class: 'btn btn-dark' %>
+
+      <% if current_user.user_type == 'Quality Assurance Engineer' %>
+        <%= link_to 'Add Bug', new_project_bug_path(@project.id), class: 'btn btn-secondary' %> <br>
+      <% end %>
     </div>
   </div>
 
-  <%= link_to 'View Bugs', project_bugs_path(@project.id), class: 'btn btn-dark' %> <br> <br>
-  <%= link_to 'Back', projects_path %> <br>
-
-  <% if current_user.user_type == 'Quality Assurance Engineer' %>
-    <%= link_to 'Add Bug', new_project_bug_path(@project.id) %>
-  <% end %>
+   <%= link_to 'Back', projects_path %>
 
 </div>

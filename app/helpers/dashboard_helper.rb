@@ -11,4 +11,34 @@ module DashboardHelper
     end
     @total_count = @count.to_s.rjust(2, '0')
   end
+
+  def developer_projects
+    @projects = current_user.projects
+  end
+
+  def developer_assigned_bugs
+    @count = 0
+    @projects = current_user.projects
+    @projects.each do |project|
+      project.bugs.each do |bug|
+        if bug.assignee == current_user
+          @count += 1
+        end
+      end
+    end
+    @total_count = @count.to_s.rjust(2, '0')
+  end
+
+  def total_reported_bugs
+    @count = 0
+    @projects = current_user.projects
+    @projects.each do |project|
+      project.bugs.each do |bug|
+        if bug.reporter == current_user
+          @count += 1
+        end
+      end
+    end
+    @total_count = @count.to_s.rjust(2, '0')
+  end
 end

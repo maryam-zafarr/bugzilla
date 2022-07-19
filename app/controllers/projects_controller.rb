@@ -68,6 +68,10 @@ class ProjectsController < ApplicationController
     end
   end
 
+  def all_projects_index
+    @projects = Project.all
+  end
+
   private
 
   def set_project
