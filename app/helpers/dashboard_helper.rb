@@ -13,14 +13,14 @@ module DashboardHelper
   end
 
   def developer_projects
-    @projects = current_user.projects
+    @projects = current_user.projects.distinct
   end
 
   def developer_assigned_bugs
     @count = 0
-    @projects = current_user.projects
+    @projects = current_user.projects.distinct
     @projects.each do |project|
-      project.bugs.each do |bug|
+      project.bugs.distinct.each do |bug|
         if bug.assignee == current_user
           @count += 1
         end
@@ -31,9 +31,9 @@ module DashboardHelper
 
   def total_reported_bugs
     @count = 0
-    @projects = current_user.projects
+    @projects = current_user.projects.distinct
     @projects.each do |project|
-      project.bugs.each do |bug|
+      project.bugs.distinct.each do |bug|
         if bug.reporter == current_user
           @count += 1
         end
