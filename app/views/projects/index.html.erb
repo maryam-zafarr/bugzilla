@@ -1,28 +1,37 @@
 <div class='container mt-4'>
-<h1>My Projects</h1>
-<p><%= @projects.count %> projects</p>
-<table class="table align-items-center">
-  <thead class="thead">
-    <tr class='head-row'>
-      <th>Project ID</th>
-      <th>Title</th>
-      <th>Project Manager</th>
-      <th>Team Members</th>
-      <th>Bugs</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <% @projects.each do |project| %>
-      <tr>
-        <td><%= project.id %></td>
-        <td><%= project.title %></td>
-        <td><%= project.manager.name %></td>
-        <td><%= project.users.distinct.count %></td>
-        <td><%= project.bugs.count %></td>
-        <td><%= link_to 'View', project, class:'btn btn-outline-info pt-0 pb-0' %></td>
+  <div class='row'>
+    <div class='col-6'>
+      <h1>My Projects</h1>
+      <p><%= @projects.count %> projects</p>
+    </div>
+    <div class='col-6'>
+      <%= link_to 'Create Project', new_project_path, class:'btn btn-warning float-right mr-4' %>
+    </div>
+  </div>
+  <table class="table align-items-center">
+    <thead class="thead">
+      <tr class='head-row'>
+        <th>Project ID</th>
+        <th>Title</th>
+        <th>Project Manager</th>
+        <th>Team Members</th>
+        <th>Bugs</th>
+        <th></th>
       </tr>
-      <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+      <% @projects.each do |project| %>
+        <tr>
+          <td><%= project.id %></td>
+          <td><%= project.title %></td>
+          <td><%= project.manager.name %></td>
+          <td><%= project.users.distinct.count %></td>
+          <td><%= project.bugs.count %></td>
+          <td><%= link_to 'View', project, class:'btn btn-outline-info pt-0 pb-0' %></td>
+        </tr>
+        <% end %>
+    </tbody>
+  </table>
+
+  <%= link_to 'Back', dashboard_path, class: 'btn btn-outline-dark' %>
 </div>

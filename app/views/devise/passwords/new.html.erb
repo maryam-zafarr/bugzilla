@@ -1,11 +1,12 @@
 <h2>Forgot Your Password?</h2>
 <p class='small text-center ml-4 mr-4 pl-4 pr-4'>Enter your email address and we will send you instructions to reset your password.</p>
 <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+
 
   <div class="field mb-4">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input_field" %>
+    <span class='error-msg'><%= resource.errors[:email].first if resource.errors[:email].present? %></span>
   </div>
 
   <div class="actions mb-3">

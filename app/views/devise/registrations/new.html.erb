@@ -1,34 +1,38 @@
 <h2 class='mb-4'>Sign Up</h2>
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
 
-  <div class="field mb-3">
-    <%= f.label :name %><br />
+  <div class="mb-3">
+    <%= f.label :name %><br>
     <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "input_field" %>
+    <span class='error-msg'><%= resource.errors[:name].first if resource.errors[:name].present? %></span>
   </div>
 
-  <div class="field mb-3">
-    <%= f.label :email %><br />
+  <div class="mb-3">
+    <%= f.label :email %><br>
     <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input_field" %>
+    <span class='error-msg'><%= resource.errors[:email].first if resource.errors[:email].present? %></span>
   </div>
 
-  <div class="field mb-3">
-    <%= f.label :user_type, 'Role' %><br />
+  <div class="mb-3">
+    <%= f.label :user_type, 'Role' %><br/>
     <%= f.select(:user_type, ['Manager', 'Developer', 'Quality Assurance Engineer'], {}, class: 'input_field') %>
+    <span class='error-msg'><%= resource.errors[:user_type].first if resource.errors[:user_type].present? %></span>
   </div>
 
-  <div class="field mb-3">
+  <div class="mb-3">
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "new-password", class: "input_field"%>
+    <span class='error-msg'><%= resource.errors[:password].first if resource.errors[:password].present? %></span>
   </div>
 
-  <div class="field mb-4">
+  <div class="mb-4">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input_field" %>
+    <span class='error-msg'><%= resource.errors[:password_confirmation].first if resource.errors[:password_confirmation].present? %></span>
   </div>
 
   <div class="actions mb-3">

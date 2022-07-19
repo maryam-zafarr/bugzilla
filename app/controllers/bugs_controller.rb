@@ -2,7 +2,7 @@
 
 # Bug class to add bugs/ features to projects
 class BugsController < ApplicationController
-  before_action :set_bug, only: %i[edit update destory]
+  before_action :set_bug, only: %i[edit update destroy]
 
 
   def index
@@ -30,7 +30,7 @@ class BugsController < ApplicationController
     @bug = @project.bugs.create(bug_params)
 
     respond_to do |format|
-      if @bug.save!
+      if @bug.save
         format.html { redirect_to project_bug_path(@bug.project, @bug), notice: 'Bug was successfully created.' }
         format.json { render :show, status: :created, location: @bug }
       else
@@ -63,9 +63,11 @@ class BugsController < ApplicationController
     authorize @bug
 
     respond_to do |format|
-      format.html { redirect_to @project, notice: 'Bug was sucessfully deleted.' }
+      format.html { redirect_to project_bugs_path, notice: 'Bug was sucessfully deleted.' }
       format.json { head :no_content }
     end
+
+
   end
 
   def assign

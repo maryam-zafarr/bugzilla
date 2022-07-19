@@ -1,17 +1,20 @@
-<%= form_with model: @project, remote: true do |form| %>
+<%= form_with model: @project, local:true do |form| %>
   <div class='mb-4'>
-    <%= form.label :title, class: 'label_f' %><br>
+    <%= form.label :title, class: 'label_f'  %>
     <%= form.text_field :title, class: 'input_f' %>
+    <span class='error-msg'><%= @project.errors[:title].first if @project.errors[:title].present? %></span>
   </div>
 
   <div class='mb-4'>
     <%= form.label :description, class: 'label_f' %><br>
     <%= form.text_area :description, class: 'input_f desc' %>
+    <span class='error-msg'><%= @project.errors[:description].first if @project.errors[:description].present? %></span>
   </div>
 
  <div class='mb-4'>
     <%= form.label :user_ids, 'Select Team',class: 'label_f' %><br>
     <%= form.collection_select(:user_ids, User.where.not(user_type: 'Manager'), :id, :name_with_title,  {:include_hidden => false}, {:multiple => true, :style => "width:75vw"}) %>
+    <span class='error-msg'><%= 'Choose team' if @project.errors[:users].present? %></span>
   </div>
 
   <%= form.hidden_field :manager_id , :value=>current_user.id %>

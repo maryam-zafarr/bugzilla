@@ -4,11 +4,13 @@
   <div class="field mb-3">
     <%= f.label :email %><br />
     <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input_field" %>
+    <span class='error-msg'><%= resource.errors[:email].first if resource.errors[:email].present? %></span>
   </div>
 
   <div class="field mb-3">
     <%= f.label :password %><br />
     <%= f.password_field :password, autocomplete: "current-password", class: "input_field" %>
+    <span class='error-msg'><%= resource.errors[:password].first if resource.errors[:password].present? %></span>
   </div>
 
   <% if devise_mapping.rememberable? %>

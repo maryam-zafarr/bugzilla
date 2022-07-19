@@ -25,12 +25,15 @@ class ProjectsController < ApplicationController
 
   def create
     @project = current_user.projects.build(project_params)
-    users = User.find(params[:project][:user_ids])
-    @project.users << users unless @project.users.include?(users)
+
+    if params[:user_ids].present?
+      users = User.find(params[:project][:user_ids])
+      @project.users << users unless @project.users.include?(users)
+    end
     authorize @project
 
     respond_to do |format|
-      if @project.save!
+      if @project.save
         format.html { redirect_to @project, notice: 'Project was sucessfully created.' }
         format.json { render :show, status: :created, location: @project }
       else
