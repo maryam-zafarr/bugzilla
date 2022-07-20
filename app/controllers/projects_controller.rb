@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Class to perform CRUD operations for projects
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[edit update destroy]
 

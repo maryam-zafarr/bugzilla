@@ -4,10 +4,9 @@
 class BugsController < ApplicationController
   before_action :set_bug, only: %i[edit update destroy]
 
-
   def index
     @project = Project.find(params[:project_id])
-    if (current_user.user_type == 'Quality Assurance Engineer' || (current_user.id).in?(@project.users.ids) || (current_user.id == @project.manager_id))
+    if current_user.user_type == 'Quality Assurance Engineer' || (current_user.id).in?(@project.users.ids) || (current_user.id == @project.manager_id)
       @bugs = @project.bugs
     else
       redirect_to project_path(@project)
@@ -67,7 +66,6 @@ class BugsController < ApplicationController
       format.json { head :no_content }
     end
 
-
   end
 
   def assign
@@ -102,6 +100,7 @@ class BugsController < ApplicationController
   end
 
   def bug_params
-    params.require(:bug).permit(:title, :bug_type, :description, :screenshot, :status, :deadline, :assignee_id, :reporter_id)
+    params.require(:bug).permit(:title, :bug_type, :description, :screenshot,
+                                :status, :deadline, :assignee_id, :reporter_id)
   end
 end
