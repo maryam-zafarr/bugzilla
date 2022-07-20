@@ -33,7 +33,7 @@
     <div class='col-6'>
       <h5 class='mb-4'><i class='fa fa-list-alt'></i> Bug Details</h5>
       <p><strong>Type: </strong><span class='badge badge-success'><%= @bug.bug_type %></span></p>
-      <p><strong>Status: </strong><span class='badge badge-warning'><%= @bug.status %></span></p>
+      <p id='status_show'><strong>Status: </strong><span class='badge badge-warning' id='status-b'><%= @bug.status %></span></p>
       <p><strong>Deadline: </strong><%= @bug.deadline %></p>
       <p><strong>Reporter: </strong><%= @bug.reporter.name %></p>
 

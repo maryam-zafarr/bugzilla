@@ -1,18 +1,24 @@
 <%= form_with model: [@project, @bug], local: true do |form| %>
   <div class='mb-4'>
-    <%= form.label :title, class: 'label_f'  %>
+    <%= form.label :title, class: 'label_f'  %><br>
     <%= form.text_field :title, class: 'input_f' %>
     <span class='error-msg'><%= @bug.errors[:title].first if @bug.errors[:title].present? %></span>
   </div>
 
   <div class='mb-4'>
     <%= form.label :bug_type, 'Category', class: 'label_f'  %><br>
-    <%= form.select :bug_type, ['Bug','Feature']%>
+    <%= form.select :bug_type, ['Bug','Feature'], {prompt: "Select"}, {id:'bug_type', class: 'input_f'}%>
     <span class='error-msg'><%= @bug.errors[:bug_type].first if @bug.errors[:bug_type].present? %></span>
   </div>
 
   <div class='mb-4'>
-    <%= form.label :description, class: 'label_f'  %>
+    <%= form.label :status, class: 'label_f'  %><br>
+    <%= form.select :status , [] ,{prompt: "Select"}, {id:'status', class: 'input_f'} %>
+    <span class='error-msg'><%= @bug.errors[:status].first if @bug.errors[:status].present? %></span>
+  </div>
+
+  <div class='mb-4'>
+    <%= form.label :description, class: 'label_f'  %><br>
     <%= form.text_area :description, class: 'input_f'%>
   </div>
 
@@ -21,31 +27,11 @@
     <%= form.file_field :screenshot, class: 'input_f'%>
   </div>
 
-  <% if @bug.id && @bug.bug_type == 'Bug' %>
-  <div class='mb-4'>
-    <%= form.label :status, class: 'label_f'  %>
-    <%= form.select :status , ['New', 'Started', 'Resolved'], class: 'input_f' %>
-    <span class='error-msg'><%= @bug.errors[:status].first if @bug.errors[:status].present? %></span>
-  </div>
-  <% end %>
-
-<% if @bug.id && @bug.bug_type == 'Feature' %>
-  <div class='mb-4'>
-    <%= form.label :status, class: 'label_f'  %><br>
-    <%= form.select :status , ['New', 'Started', 'Completed'], class: 'input_f' %>
-    <span class='error-msg'><%= @bug.errors[:status].first if @bug.errors[:status].present? %></span>
-  </div>
-  <% end %>
-
   <div class='mb-4'>
     <%= form.label :deadline, class: 'label_f'  %><br>
     <%= form.date_field :deadline, min: Date.today, class: 'input_f'%>
     <span class='error-msg'><%= @bug.errors[:deadline].first if @bug.errors[:deadline].present? %></span>
   </div>
-
-  <% if !@bug.id %>
-  <%= form.hidden_field :status, :value=>'New'%>
-  <% end %>
 
   <%= form.hidden_field :reporter_id , :value=>current_user.id %>
 

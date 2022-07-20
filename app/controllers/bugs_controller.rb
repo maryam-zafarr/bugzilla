@@ -3,7 +3,7 @@
 # Bug class to add bugs/ features to projects
 class BugsController < ApplicationController
   before_action :set_bug, only: %i[edit update destroy show]
-  before_action :set_project, only: %i[index new create]
+  before_action :set_project, only: %i[index new create edit]
 
   def index
     if qa? || (current_user).in?(@project.users) || (current_user == @project.manager)
