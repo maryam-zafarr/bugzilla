@@ -6,7 +6,7 @@
     </div>
 
     <div class='col-5 text-right'>
-      <% if @bug.assignee == nil && current_user.user_type == 'Developer' && (current_user.id).in?(@bug.project.users.ids) %>
+      <% if @bug.assignee == nil && developer? && current_user.in?(@bug.project.users) %>
         <%= button_to 'Assign to Self', project_bug_assign_path(:bug_id => @bug.id), method: :post, class:'btn btn-outline-info'  %>
       <% end %>
 
@@ -58,14 +58,5 @@
   </div>
 
   <%= link_to 'Back', project_bugs_path, class: 'btn btn-dark'%>
-
-
-
-
-
-
-
-
   <br>
-
 </div>

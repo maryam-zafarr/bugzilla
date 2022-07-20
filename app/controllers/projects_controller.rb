@@ -5,15 +5,11 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: %i[edit update destroy]
 
   def index
-    if current_user.user_type == 'Manager'
+    if manager?
       @projects = Project.where(manager_id: current_user.id)
-    elsif current_user.user_type == 'Quality Assurance Engineer'
-      @all_projects = Project.all
-      @projects = current_user.projects.distinct
     else
       @projects = current_user.projects.distinct
     end
-    session[:projects] = @projects
   end
 
   def show

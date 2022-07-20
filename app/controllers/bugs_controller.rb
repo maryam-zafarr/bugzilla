@@ -2,11 +2,11 @@
 
 # Bug class to add bugs/ features to projects
 class BugsController < ApplicationController
-  before_action :set_bug, only: %i[edit update destroy]
+  before_action :set_bug, only: %i[edit update destroy show]
+  before_action :set_project, only: %i[index new create]
 
   def index
-    @project = Project.find(params[:project_id])
-    if current_user.user_type == 'Quality Assurance Engineer' || (current_user.id).in?(@project.users.ids) || (current_user.id == @project.manager_id)
+    if qa? || (current_user).in?(@project.users) || (current_user == @project.manager)
       @bugs = @project.bugs
     else
       redirect_to project_path(@project)
@@ -14,18 +14,15 @@ class BugsController < ApplicationController
   end
 
   def show
-    @bug = Bug.find(params[:id])
     authorize @bug
   end
 
   def new
-    @project = Project.find(params[:project_id])
     @bug = @project.bugs.new
     authorize @bug
   end
 
   def create
-    @project = Project.find(params[:project_id])
     @bug = @project.bugs.create(bug_params)
 
     respond_to do |format|
@@ -94,8 +91,11 @@ class BugsController < ApplicationController
 
   private
 
-  def set_bug
+  def set_project
     @project = Project.find(params[:project_id])
+  end
+
+  def set_bug
     @bug = Bug.find(params[:id])
   end
 

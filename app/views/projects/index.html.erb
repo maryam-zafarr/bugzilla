@@ -5,7 +5,7 @@
       <p><%= @projects.count %> projects</p>
     </div>
     <div class='col-6'>
-      <% if current_user.user_type == 'Manager' %>
+      <% if manager? %>
       <%= link_to 'Create Project', new_project_path, class:'btn btn-warning float-right mr-4' %>
       <% end %>
     </div>

@@ -33,7 +33,7 @@
 
       <%= link_to 'View Bugs', project_bugs_path(@project.id), class: 'btn btn-dark' %>
 
-      <% if current_user.user_type == 'Quality Assurance Engineer' %>
+      <% if qa? %>
         <%= link_to 'Add Bug', new_project_bug_path(@project.id), class: 'btn btn-secondary' %> <br>
       <% end %>
     </div>
