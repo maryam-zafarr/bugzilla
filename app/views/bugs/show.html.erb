@@ -11,11 +11,11 @@
       <% end %>
 
       <% if @bug.assignee == current_user %>
-        <% if @bug.status == 'New' %>
+        <% if new? %>
           <%= button_to 'Mark as Started', project_bug_change_path(:bug_id => @bug.id), method: :post, class:'btn btn-outline-success' %>
-        <% elsif @bug.status == 'Started' && @bug.bug_type == 'Bug' %>
+        <% elsif started? && bug? %>
           <%= button_to 'Mark as Resolved', project_bug_change_path(:bug_id => @bug.id), method: :post, class:'btn btn-outline-success' %>
-        <% elsif @bug.status == 'Started' && @bug.bug_type == 'Feature' %>
+        <% elsif started? && feature? %>
           <%= button_to 'Mark as Resolved', project_bug_change_path(:bug_id => @bug.id), method: :post, class:'btn btn-outline-success' %>
         <% else %>
           <%= button_to 'Mark Started', project_bug_change_path(:bug_id => @bug.id), method: :post, class:'btn btn-outline-success' %>

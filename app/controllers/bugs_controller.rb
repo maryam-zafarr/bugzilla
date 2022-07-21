@@ -77,12 +77,12 @@ class BugsController < ApplicationController
 
   def change
     @bug = Bug.find(params[:bug_id])
-    if @bug.status == 'New'
+    if new?
       @bug.update_column(:status, 'Started')
-    elsif  @bug.status == 'Started' && @bug.bug_type == 'Bug'
+    elsif  started? && bug?
       @bug.update_column(:status, 'Resolved')
-    elsif  @bug.status == 'Started' && @bug.bug_type == 'Feature'
-      @bug.update_column(:status, 'Resolved')
+    elsif  started? && feature?
+      @bug.update_column(:status, 'Completed')
     else
       @bug.update_column(:status, 'Started')
     end
