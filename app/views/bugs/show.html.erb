@@ -11,14 +11,12 @@
       <% end %>
 
       <% if @bug.assignee == current_user %>
-        <% if new? %>
-          <%= button_to 'Mark as Started', project_bug_change_path(:bug_id => @bug.id), method: :post, class:'btn btn-outline-success' %>
-        <% elsif started? && bug? %>
-          <%= button_to 'Mark as Resolved', project_bug_change_path(:bug_id => @bug.id), method: :post, class:'btn btn-outline-success' %>
+        <% if started? && bug? %>
+          <%= render partial: 'statusbutton', locals: {text: 'Mark Resolved'}%>
         <% elsif started? && feature? %>
-          <%= button_to 'Mark as Resolved', project_bug_change_path(:bug_id => @bug.id), method: :post, class:'btn btn-outline-success' %>
+          <%= render partial: 'statusbutton', locals: {text: 'Mark Completed'}%>
         <% else %>
-          <%= button_to 'Mark Started', project_bug_change_path(:bug_id => @bug.id), method: :post, class:'btn btn-outline-success' %>
+          <%= render partial: 'statusbutton', locals: {text: 'Mark Started'}%>
         <% end%>
       <% end %>
 
