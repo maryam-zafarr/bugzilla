@@ -1,9 +1,16 @@
 # Bugzilla
 Bugzilla is a bug tracking system that:
   - Allows managers to create projects and add developers and qa to project teams.
-  - Allows qa engineers ti report bugs to projects, and
+  - Allows qa engineers to report bugs to projects, and
   - Allows developers to assign bugs from a list of their projects.
 
+## Built With
+ - Ruby on Rails
+ - Bootstrap 4
+ - Postgresql
+ - Devise gem
+ - Pundit gem
+ 
 ## Getting Started
 Before starting, please ensure that your system meets the following software requirements:
   - Ruby 2.7.0
@@ -33,3 +40,26 @@ rails db:seed
 ```
 rails s
 ```
+
+## Features
+
+#### Manager
+ - Create a project
+ - Edit and Delete the projects he creates.
+ - Add/Remove Developers and QAs to the projects he creates
+
+#### Developer
+ - Assign bugs to himself. Pick up a bug from the list of his projects. 
+ - Can see only the projects he is part of. 
+ - Mark a bug resolved. 
+ - Can not see other projects. 
+ - Can not report Bug. 
+ - Can not delete a Bug. 
+ - Can not join any project
+
+#### QA
+- Report Bugs to all projects
+- Can see all projects.
+- Can not edit/delete/create any project.
+
+
