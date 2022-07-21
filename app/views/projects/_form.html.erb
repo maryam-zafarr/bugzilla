@@ -2,13 +2,13 @@
   <div class='mb-4'>
     <%= form.label :title, class: 'label_f'  %>
     <%= form.text_field :title, class: 'input_f' %>
-    <span class='error-msg'><%= @project.errors[:title].first if @project.errors[:title].present? %></span>
+    <%= render partial: 'error', locals: {resource: @project, attribute: :title}%>
   </div>
 
   <div class='mb-4'>
     <%= form.label :description, class: 'label_f' %><br>
     <%= form.text_area :description, class: 'input_f desc' %>
-    <span class='error-msg'><%= @project.errors[:description].first if @project.errors[:description].present? %></span>
+    <%= render partial: 'error', locals: {resource: @project, attribute: :description}%>
   </div>
 
  <div class='mb-4'>

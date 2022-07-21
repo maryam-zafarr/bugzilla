@@ -5,19 +5,19 @@
   <div class="mb-3">
     <%= f.label :name %><br>
     <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "input_field" %>
-    <span class='error-msg'><%= resource.errors[:name].first if resource.errors[:name].present? %></span>
+    <%= render partial: 'error', locals: {resource: resource, attribute: :name}%>
   </div>
 
   <div class="mb-3">
     <%= f.label :email %><br>
     <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input_field" %>
-    <span class='error-msg'><%= resource.errors[:email].first if resource.errors[:email].present? %></span>
+    <%= render partial: 'error', locals: {resource: resource, attribute: :email}%>
   </div>
 
   <div class="mb-3">
     <%= f.label :user_type, 'Role' %><br/>
     <%= f.select(:user_type, ['Manager', 'Developer', 'Quality Assurance Engineer'], {}, class: 'input_field') %>
-    <span class='error-msg'><%= resource.errors[:user_type].first if resource.errors[:user_type].present? %></span>
+    <%= render partial: 'error', locals: {resource: resource, attribute: :user_type}%>
   </div>
 
   <div class="mb-3">
@@ -26,13 +26,13 @@
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
     <%= f.password_field :password, autocomplete: "new-password", class: "input_field"%>
-    <span class='error-msg'><%= resource.errors[:password].first if resource.errors[:password].present? %></span>
+    <%= render partial: 'error', locals: {resource: resource, attribute: :password}%>
   </div>
 
   <div class="mb-4">
     <%= f.label :password_confirmation %><br />
     <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input_field" %>
-    <span class='error-msg'><%= resource.errors[:password_confirmation].first if resource.errors[:password_confirmation].present? %></span>
+    <%= render partial: 'error', locals: {resource: resource, attribute: :password_confirmation}%>
   </div>
 
   <div class="actions mb-3">
