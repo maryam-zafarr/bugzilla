@@ -7,13 +7,13 @@
 
   <div class='mb-4'>
     <%= form.label :bug_type, 'Category', class: 'label_f'  %><br>
-    <%= form.select :bug_type, ['Bug','Feature'], {prompt: "Select"}, {id:'bug_type', class: 'input_f'}%>
+    <%= form.select :bug_type, ['Bug','Feature'], {prompt: 'Select'}, {id:'bug_type', class: 'input_f'}%>
     <%= render partial: 'error', locals: {resource: @bug, attribute: :bug_type}%>
   </div>
 
   <div class='mb-4'>
     <%= form.label :status, class: 'label_f'  %><br>
-    <%= form.select :status , [] ,{prompt: "Select"}, {id:'status', class: 'input_f'} %>
+    <%= form.select :status , [] ,{prompt: 'Select'}, {id:'status', class: 'input_f'} %>
     <%= render partial: 'error', locals: {resource: @bug, attribute: :status}%>
   </div>
 
@@ -25,6 +25,7 @@
   <div class='mb-4'>
     <%= form.label :screenshot, class: 'label_f'  %>
     <%= form.file_field :screenshot, class: 'input_f'%>
+    <%= render partial: 'error', locals: {resource: @bug, attribute: :screenshot}%>
   </div>
 
   <div class='mb-4'>

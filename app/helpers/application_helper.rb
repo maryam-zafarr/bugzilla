@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Helper methods used across the application
 module ApplicationHelper
   def manager?
     current_user.user_type == 'Manager'

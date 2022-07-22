@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# Helper methods for developer, manager and qa dashbaord statistics
 module DashboardHelper
   def manager_projects
     @projects = Project.where(manager_id: current_user.id)
@@ -21,9 +24,7 @@ module DashboardHelper
     @projects = current_user.projects.distinct
     @projects.each do |project|
       project.bugs.distinct.each do |bug|
-        if bug.assignee == current_user
-          @count += 1
-        end
+        @count += 1 if bug.assignee == current_user
       end
     end
     @total_count = @count.to_s.rjust(2, '0')
@@ -34,9 +35,7 @@ module DashboardHelper
     @projects = current_user.projects.distinct
     @projects.each do |project|
       project.bugs.distinct.each do |bug|
-        if bug.reporter == current_user
-          @count += 1
-        end
+        @count += 1 if bug.reporter == current_user
       end
     end
     @total_count = @count.to_s.rjust(2, '0')

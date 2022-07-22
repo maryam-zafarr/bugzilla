@@ -4,6 +4,7 @@
 class BugsController < ApplicationController
   before_action :set_bug, only: %i[edit update destroy show]
   before_action :set_project, only: %i[index new create edit]
+  before_action :set_bug_id, only: %i[assign change]
 
   def index
     if qa? || (current_user).in?(@project.users) || (current_user == @project.manager)
@@ -46,10 +47,8 @@ class BugsController < ApplicationController
     respond_to do |format|
       if @bug.save
         format.html { redirect_to project_bug_path(@bug.project, @bug), notice: 'Bug was successfully updated.' }
-        format.json { render :show, status: :created, location: @bug }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @bug.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -62,11 +61,9 @@ class BugsController < ApplicationController
       format.html { redirect_to project_bugs_path, notice: 'Bug was sucessfully deleted.' }
       format.json { head :no_content }
     end
-
   end
 
   def assign
-    @bug = Bug.find(params[:bug_id])
     authorize @bug
     if @bug.assignee_id.nil?
       assignee = User.find(current_user.id).id
@@ -76,7 +73,6 @@ class BugsController < ApplicationController
   end
 
   def change
-    @bug = Bug.find(params[:bug_id])
     if new?
       @bug.update_column(:status, 'Started')
     elsif  started? && bug?
@@ -97,6 +93,10 @@ class BugsController < ApplicationController
 
   def set_bug
     @bug = Bug.find(params[:id])
+  end
+
+  def set_bug_id
+    @bug = Bug.find(params[:bug_id])
   end
 
   def bug_params

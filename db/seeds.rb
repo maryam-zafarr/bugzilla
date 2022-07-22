@@ -1,82 +1,111 @@
-User::HABTM_Projects.create!([
-  {project_id: 13, user_id: 7},
-  {project_id: 13, user_id: 7},
-  {project_id: 19, user_id: 5},
-  {project_id: 19, user_id: 7},
-  {project_id: 19, user_id: 12},
-  {project_id: 19, user_id: 13},
-  {project_id: 19, user_id: 5},
-  {project_id: 19, user_id: 7},
-  {project_id: 19, user_id: 12},
-  {project_id: 19, user_id: 13},
-  {project_id: 20, user_id: 9},
-  {project_id: 20, user_id: 10},
-  {project_id: 20, user_id: 11},
-  {project_id: 20, user_id: 13},
-  {project_id: 20, user_id: 9},
-  {project_id: 20, user_id: 10},
-  {project_id: 20, user_id: 11},
-  {project_id: 20, user_id: 13},
-  {project_id: 21, user_id: 5},
-  {project_id: 21, user_id: 11},
-  {project_id: 21, user_id: 12},
-  {project_id: 21, user_id: 13},
-  {project_id: 21, user_id: 5},
-  {project_id: 21, user_id: 11},
-  {project_id: 21, user_id: 12},
-  {project_id: 21, user_id: 13}
-])
-Project::HABTM_Users.create!([
-  {project_id: 13, user_id: 7},
-  {project_id: 13, user_id: 7},
-  {project_id: 19, user_id: 5},
-  {project_id: 19, user_id: 7},
-  {project_id: 19, user_id: 12},
-  {project_id: 19, user_id: 13},
-  {project_id: 19, user_id: 5},
-  {project_id: 19, user_id: 7},
-  {project_id: 19, user_id: 12},
-  {project_id: 19, user_id: 13},
-  {project_id: 20, user_id: 9},
-  {project_id: 20, user_id: 10},
-  {project_id: 20, user_id: 11},
-  {project_id: 20, user_id: 13},
-  {project_id: 20, user_id: 9},
-  {project_id: 20, user_id: 10},
-  {project_id: 20, user_id: 11},
-  {project_id: 20, user_id: 13},
-  {project_id: 21, user_id: 5},
-  {project_id: 21, user_id: 11},
-  {project_id: 21, user_id: 12},
-  {project_id: 21, user_id: 13},
-  {project_id: 21, user_id: 5},
-  {project_id: 21, user_id: 11},
-  {project_id: 21, user_id: 12},
-  {project_id: 21, user_id: 13}
-])
-User.create!([
-  {email: "marilyn.monroe@example.com", encrypted_password: "$2a$12$h448YG.rCXv33BVQZeKjc.rG8cBwdyZp8KCpH8gt1326GliTQtMhq", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, name: "Marilyn Monroe", user_type: "Quality Assurance Engineer"},
-  {email: "emma.cox@example.com", encrypted_password: "$2a$12$DgV7.UM2pWcD/5x549v07eZjQCuCoAcQtIlhPb2vmM3wHNOmyhmtq", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, name: "Emma Cox", user_type: "Developer"},
-  {email: "steven.jones@example.com", encrypted_password: "$2a$12$vVfTcXuTsus6ne4SLu.7Z.4uFoLCwtYlxzHULA3yv6M6jKLj8dNSa", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, name: "Steven Jones", user_type: "Quality Assurance Engineer"},
-  {email: "devin.brook@example.com", encrypted_password: "$2a$12$uDLQ5WMZTLAfSJpuAaTxY.9oCX77Z3.Xj5LM1Szxc4vXK1uJiTEPe", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, name: "Devin Brook", user_type: "Developer"},
-  {email: "emily.cooper@example.com", encrypted_password: "$2a$12$4gz8XtBo27eIYbWsMVplt.i1KVfC1ds7hf9jcT1fGRGvRvBmODrKi", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, name: "Emily Cooper", user_type: "Developer"},
-  {email: "alex.jones@example.com", encrypted_password: "$2a$12$wL178KYX00c0Z00Gfd.TcukAug8yIsgdNVEANW9pLwnnlmsX3iz9G", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, name: "Alex Jones", user_type: "Developer"},
-  {email: "john.doe@example.com", encrypted_password: "$2a$12$gKjU6iJwCANPhTce5uPLYe4nqywdi8s2tkFEM7PZmuGIFE.uMbZkm", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, name: "John Doe", user_type: "Developer"},
-  {email: "stephen.wan@example.com", encrypted_password: "$2a$12$CrDrGi1mz2783flUzHyy6OwLOB4C3I.hutRYo2xK/9ijAMp7CDm82", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, name: "Stephen Wan", user_type: "Quality Assurance Engineer"},
-  {email: "henry.bill@example.com", encrypted_password: "$2a$12$KIjTdTf61uUvdE3KhCedq.tsPOo227iL8x7FhtbT5dTt9HiL8cyvO", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, name: "Henry Bill", user_type: "Manager"},
-  {email: "maryam.zafar@devsinc.com", encrypted_password: "$2a$12$mc/NddCVSaTBOlX.wwrwaOGBybG.aLVdGy8tPO5U/8lWlU4oxZfJu", reset_password_token: "e061054ed94b281772d9db0e2c349ccf2a03097b0b69a4d86afcddb6227433ae", reset_password_sent_at: "2022-07-18 12:51:20", remember_created_at: nil, name: "Maryam Zafar", user_type: "Manager"},
-  {email: "tom.zane123@example.com", encrypted_password: "$2a$12$uwN.Kr490c8qu5lf2lc3X.6nXnyUTPOBtGUSzb8WUOlAY1nWNFBAa", reset_password_token: nil, reset_password_sent_at: nil, remember_created_at: nil, name: "Tom Zane", user_type: "Manager"}
-])
-Bug.create!([
-  {title: "Slow search result fetching", bug_type: "Bug", status: "New", deadline: "2022-07-28", project_id: 19, reporter_id: 5, assignee_id: nil, description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old."},
-  {title: "Add footer", bug_type: "Feature", status: "Started", deadline: "2022-07-21", project_id: 20, reporter_id: 5, assignee_id: 10, description: ""},
-  {title: "Slow search result fetching", bug_type: "Bug", status: "New", deadline: "2022-07-21", project_id: 20, reporter_id: 9, assignee_id: 11, description: "Fetching of search results taking over 5 seconds"},
-  {title: "Cart closes on item removal", bug_type: "Bug", status: "Started", deadline: "2022-07-25", project_id: 21, reporter_id: 5, assignee_id: 11, description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old."},
-  {title: "Login screen accessibility issues", bug_type: "Bug", status: "Resolved", deadline: "2022-07-27", project_id: 19, reporter_id: 5, assignee_id: 13, description: "The app logins from console but not via interface."},
-  {title: "Sidebar button not working", bug_type: "Bug", status: "New", deadline: "2022-07-28", project_id: 21, reporter_id: 9, assignee_id: 13, description: "Button's not working!"}
-])
-Project.create!([
-  {title: "Nixon Training App", description: "This project will develop a module offered to level 2 Undergraduate students and will seek to\ndevelop student’s skills in collaborative working and information literacy while still advancing\ntheir discipline knowledge. The subject librarian will be invited to conduct an inquiry-based\nworkshop with the students at the start of the module to prepare them for a literature search\nactivity and will also provide ongoing support for students via discussion boards in the VLE.", manager_id: 6},
-  {title: "Tetra Vision", description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.", manager_id: 6},
-  {title: "Stark Software 243A", description: "Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source.", manager_id: 6}
-])
+# frozen_string_literal: true
+
+User::HABTM_Projects.create!(
+  [
+    { project_id: 13, user_id: 7 },
+    { project_id: 13, user_id: 7 },
+    { project_id: 19, user_id: 5 },
+    { project_id: 19, user_id: 7 },
+    { project_id: 19, user_id: 12 },
+    { project_id: 19, user_id: 13 },
+    { project_id: 19, user_id: 5 },
+    { project_id: 19, user_id: 7 },
+    { project_id: 19, user_id: 12 },
+    { project_id: 19, user_id: 13 },
+    { project_id: 20, user_id: 9 },
+    { project_id: 20, user_id: 10 },
+    { project_id: 20, user_id: 11 },
+    { project_id: 20, user_id: 13 },
+    { project_id: 20, user_id: 9 },
+    { project_id: 20, user_id: 10 },
+    { project_id: 20, user_id: 11 },
+    { project_id: 20, user_id: 13 },
+    { project_id: 21, user_id: 5 },
+    { project_id: 21, user_id: 11 },
+    { project_id: 21, user_id: 12 },
+    { project_id: 21, user_id: 13 },
+    { project_id: 21, user_id: 5 },
+    { project_id: 21, user_id: 11 },
+    { project_id: 21, user_id: 12 },
+    { project_id: 21, user_id: 13 }
+  ]
+)
+Project::HABTM_Users.create!(
+  [
+    { project_id: 13, user_id: 7 },
+    { project_id: 13, user_id: 7 },
+    { project_id: 19, user_id: 5 },
+    { project_id: 19, user_id: 7 },
+    { project_id: 19, user_id: 12 },
+    { project_id: 19, user_id: 13 },
+    { project_id: 19, user_id: 5 },
+    { project_id: 19, user_id: 7 },
+    { project_id: 19, user_id: 12 },
+    { project_id: 19, user_id: 13 },
+    { project_id: 20, user_id: 9 },
+    { project_id: 20, user_id: 10 },
+    { project_id: 20, user_id: 11 },
+    { project_id: 20, user_id: 13 },
+    { project_id: 20, user_id: 9 },
+    { project_id: 20, user_id: 10 },
+    { project_id: 20, user_id: 11 },
+    { project_id: 20, user_id: 13 },
+    { project_id: 21, user_id: 5 },
+    { project_id: 21, user_id: 11 },
+    { project_id: 21, user_id: 12 },
+    { project_id: 21, user_id: 13 },
+    { project_id: 21, user_id: 5 },
+    { project_id: 21, user_id: 11 },
+    { project_id: 21, user_id: 12 },
+    { project_id: 21, user_id: 13 }
+  ]
+)
+User.create!(
+  [
+    { email: 'marilyn@example.com', encrypted_password: '$2a$12$h448YG.rCXv33BVQZeKjc.rG8cBwdyZp8KCpH8gt1326GliTQtMhq',
+      name: 'Marilyn Monroe', user_type: 'Quality Assurance Engineer' },
+    { email: 'emma@example.com', encrypted_password: '$2a$12$DgV7.UM2pWcD/5x549v07eZjQCuCoAcQtIlhPb2vmM3wHNOmyhmtq',
+      name: 'Emma Cox', user_type: 'Developer' },
+    { email: 'steven@example.com', encrypted_password: '$2a$12$vVfTcXuTsus6ne4SLu.7Z.4uFoLCwtYlxzHULA3yv6M6jKLj8dNSa',
+      name: 'Steven Jones', user_type: 'Quality Assurance Engineer' },
+    { email: 'devin@example.com', encrypted_password: '$2a$12$uDLQ5WMZTLAfSJpuAaTxY.9oCX77Z3.Xj5LM1Szxc4vXK1uJiTEPe',
+      name: 'Devin Brook', user_type: 'Developer' },
+    { email: 'emily.c@example.com', encrypted_password: '$2a$12$4gz8XtBo27eIYbWsMVplt.i1KVfC1ds7hf9jcT1fGRGvRvBmODrKi',
+      name: 'Emily Cooper', user_type: 'Developer' },
+    { email: 'alex.j@example.com', encrypted_password: '$2a$12$wL178KYX00c0Z00Gfd.TcukAug8yIsgdNVEANW9pLwnnlmsX3iz9G',
+      name: 'Alex Jones', user_type: 'Developer' },
+    { email: 'john.doe@example.com', encrypted_password: '$2a$12$gKjU6iJwCANPhTce5uPLYe4nqywdi8s2tkFEM7PZmuGIFE.uMbZkm',
+      name: 'John Doe', user_type: 'Developer' },
+    { email: 'step.wan@example.com', encrypted_password: '$2a$12$CrDrGi1mz2783flUzHyy6OwLOB4C3I.hutRYo2xK/9ijAMp7CDm82',
+      name: 'Stephen Wan', user_type: 'Quality Assurance Engineer' },
+    { email: 'henry.b@example.com', encrypted_password: '$2a$12$KIjTdTf61uUvdE3KhCedq.tsPOo227iL8x7FhtbT5dTt9HiL8cyvO',
+      name: 'Henry Bill', user_type: 'Manager' },
+    { email: 'maryam.z@devsinc.com', encrypted_password: '$2a$12$mc/NddCVSaTBOlX.wwrwaOGBybG.aLVdGy8tPO5U/8lWlU4oxZfJu',
+      name: 'Maryam Zafar', user_type: 'Manager' },
+    { email: 'tom.zane@example.com', encrypted_password: '$2a$12$uwN.Kr490c8qu5lf2lc3X.6nXnyUTPOBtGUSzb8WUOlAY1nWNFBAa',
+      name: 'Tom Zane', user_type: 'Manager' }
+  ]
+)
+Bug.create!(
+  [
+    { title: 'Slow search result fetching', bug_type: 'Bug', status: 'New', deadline: '2022-07-28', project_id: 19,
+      reporter_id: 5, assignee_id: nil, description: 'Contrary to popular belief, Lorem Ipsum is not simply text.' },
+    { title: 'Add footer', bug_type: 'Feature', status: 'Started', deadline: '2022-07-21', project_id: 20,
+      reporter_id: 5, assignee_id: 10, description: '' },
+    { title: 'Slow search result fetching', bug_type: 'Bug', status: 'New', deadline: '2022-07-21',
+      project_id: 20, reporter_id: 9, assignee_id: 11, description: 'Fetching of search results taking over 5s' },
+    { title: 'Cart closes on item removal', bug_type: 'Bug', status: 'Started', deadline: '2022-07-25',
+      project_id: 21, reporter_id: 5, assignee_id: 11, description: 'Lorem Ipsum is not simply random text.' },
+    { title: 'Login screen accessibility issues', bug_type: 'Bug', status: 'Resolved', deadline: '2022-07-27',
+      project_id: 19, reporter_id: 5, assignee_id: 13, description: 'The app doesnt login.' },
+    { title: 'Sidebar button not working', bug_type: 'Bug', status: 'New', deadline: '2022-07-28',
+      project_id: 21, reporter_id: 9, assignee_id: 13, description: 'Buttons not working!' }
+  ]
+)
+Project.create!(
+  [
+    { title: 'Nixon Training App', description: 'Lorem Ipsum is not simply random text', manager_id: 6 },
+    { title: 'Tetra Vision', description: 'Lorem Ipsum is not simply random text.', manager_id: 6 },
+    { title: 'Stark Software 243A', description: 'Lorem Ipsum is not simply random text.', manager_id: 6 }
+  ]
+)

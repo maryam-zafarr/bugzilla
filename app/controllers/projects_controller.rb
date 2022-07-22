@@ -5,11 +5,11 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: %i[edit update destroy]
 
   def index
-    if manager?
-      @projects = Project.where(manager_id: current_user.id)
-    else
-      @projects = current_user.projects.distinct
-    end
+    @projects = if manager?
+                  @projects = Project.where(manager_id: current_user.id)
+                else
+                  current_user.projects.distinct
+                end
   end
 
   def show
@@ -24,20 +24,13 @@ class ProjectsController < ApplicationController
 
   def create
     @project = current_user.projects.build(project_params)
-
-    if params[:user_ids].present?
-      users = User.find(params[:project][:user_ids])
-      @project.users << users unless @project.users.include?(users)
-    end
+    add_to_team if params[:user_ids].present?
     authorize @project
-
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was sucessfully created.' }
-        format.json { render :show, status: :created, location: @project }
       else
         format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
   end
@@ -52,10 +45,8 @@ class ProjectsController < ApplicationController
     respond_to do |format|
       if @project.save
         format.html { redirect_to @project, notice: 'Project was sucessfully updated.' }
-        format.json { render :show, status: :created, location: @project }
       else
         format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
       end
     end
   end

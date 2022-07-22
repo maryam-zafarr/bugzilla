@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 Rails.application.routes.draw do
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
   get '/all_projects', to: 'projects#all_projects_index', as: 'all_projects'
@@ -16,5 +18,4 @@ Rails.application.routes.draw do
   authenticated :user do
     root 'dashboard#index', as: :authenticated_root
   end
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

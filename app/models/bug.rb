@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Class for projects' bug model
 class Bug < ApplicationRecord
   belongs_to :project
   belongs_to :reporter, class_name: 'User', foreign_key: 'reporter_id'
@@ -14,8 +15,8 @@ class Bug < ApplicationRecord
   validate :correct_image_type
 
   def correct_image_type
-    if screenshot.attached? && !screenshot.content_type.in?(%w(image/png image/gif))
-      errors.add(:screenshot, 'must be png or gif')
-    end
+    return unless screenshot.attached? && !screenshot.content_type.in?(%w[image/png image/gif])
+
+    errors.add(:screenshot, 'must be png or gif')
   end
 end

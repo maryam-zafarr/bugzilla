@@ -1,7 +1,11 @@
+# frozen_string_literal: true
+
+# Bug Policy
 class ProjectPolicy < ApplicationPolicy
   attr_reader :user, :project
 
   def initialize(user, project)
+    super
     @user = user
     @project = project
   end

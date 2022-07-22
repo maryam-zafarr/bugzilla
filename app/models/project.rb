@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+# Class for projects model
 class Project < ApplicationRecord
   validates :title, presence: true
   validates :description, presence: true

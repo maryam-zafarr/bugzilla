@@ -2,42 +2,42 @@
 
 <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
 
-  <div class="mb-3">
+  <div class='mb-3'>
     <%= f.label :name %><br>
-    <%= f.text_field :name, autofocus: true, autocomplete: "name", class: "input_field" %>
+    <%= f.text_field :name, autofocus: true, autocomplete: 'name', class: 'input_field' %>
     <%= render partial: 'error', locals: {resource: resource, attribute: :name}%>
   </div>
 
-  <div class="mb-3">
+  <div class='mb-3'>
     <%= f.label :email %><br>
-    <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "input_field" %>
+    <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'input_field' %>
     <%= render partial: 'error', locals: {resource: resource, attribute: :email}%>
   </div>
 
-  <div class="mb-3">
+  <div class='mb-3'>
     <%= f.label :user_type, 'Role' %><br/>
     <%= f.select(:user_type, ['Manager', 'Developer', 'Quality Assurance Engineer'], {}, class: 'input_field') %>
     <%= render partial: 'error', locals: {resource: resource, attribute: :user_type}%>
   </div>
 
-  <div class="mb-3">
+  <div class='mb-3'>
     <%= f.label :password %>
     <% if @minimum_password_length %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "new-password", class: "input_field"%>
+    <%= f.password_field :password, autocomplete: 'new-password', class: 'input_field'%>
     <%= render partial: 'error', locals: {resource: resource, attribute: :password}%>
   </div>
 
-  <div class="mb-4">
+  <div class='mb-4'>
     <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "input_field" %>
+    <%= f.password_field :password_confirmation, autocomplete: 'new-password', class: 'input_field' %>
     <%= render partial: 'error', locals: {resource: resource, attribute: :password_confirmation}%>
   </div>
 
-  <div class="actions mb-3">
-    <%= f.submit "Sign up", class: 'form_button btn-warning rounded border-0' %>
+  <div class='actions mb-3'>
+    <%= f.submit 'Sign up', class: 'form_button btn-warning rounded border-0' %>
   </div>
 <% end %>
 
-<p>Already have an account? <%= render "devise/shared/links" %></p>
+<p>Already have an account? <%= render 'devise/shared/links' %></p>

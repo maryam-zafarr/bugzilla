@@ -1,36 +1,36 @@
-<div class="container-fluid p-0 m-0 border-bottom">
-  <nav class="navbar navbar-expand-md navbar-light">
-    <a class="navbar-brand" href="#">B U G Z I L L A</a>
-    <div class="navbar-toggler"  data-toggle="collapse" data-target="#collapsibleNavbar">
-      <i class="fa fa-bars"></i> <span> MENU</span>
+<div class='container-fluid p-0 m-0 border-bottom'>
+  <nav class='navbar navbar-expand-md navbar-light'>
+    <a class='navbar-brand' href='#'>B U G Z I L L A</a>
+    <div class='navbar-toggler'  data-toggle='collapse' data-target='#collapsibleNavbar'>
+      <i class='fa fa-bars'></i> <span> MENU</span>
     </div>
-    <div class="collapse navbar-collapse" id="collapsibleNavbar">
-      <ul class="nav ml-auto">
+    <div class='collapse navbar-collapse' id='collapsibleNavbar'>
+      <ul class='nav ml-auto'>
 
         <% if user_signed_in? %>
-          <li class="nav-item pl-4 pr-4">
+          <li class='nav-item pl-4 pr-4'>
             <p class= 'nav-link c-nav'>Hi <strong><%= current_user.name.split.first%>!</strong></p>
           </li>
-          <li class="nav-item pl-4 pr-4">
+          <li class='nav-item pl-4 pr-4'>
             <%= link_to 'My Dashboard', dashboard_path, class: 'nav-link c-nav' %>
           </li>
-          <li class="nav-item pl-4 pr-4">
+          <li class='nav-item pl-4 pr-4'>
             <%= link_to 'Sign Out', destroy_user_session_path, method: :delete , class: 'nav-link c-nav' %>
           </li>
         <% else %>
-          <li class="nav-item pl-4 pr-4 nav-active">
-            <a class="nav-link c-nav active" href="#">Home</a>
+          <li class='nav-item pl-4 pr-4 nav-active'>
+            <a class='nav-link c-nav active' href='#'>Home</a>
           </li>
-          <li class="nav-item pl-4 pr-4">
-            <a class="nav-link c-nav" href="#">Features</a>
+          <li class='nav-item pl-4 pr-4'>
+            <a class='nav-link c-nav' href='#'>Features</a>
           </li>
-          <li class="nav-item pl-4 pr-4">
-            <a class="nav-link c-nav" href="#">Pricing</a>
+          <li class='nav-item pl-4 pr-4'>
+            <a class='nav-link c-nav' href='#'>Pricing</a>
           </li>
-          <li class="nav-item pl-4 pr-4">
+          <li class='nav-item pl-4 pr-4'>
             <%= link_to 'Sign In', user_session_path, class: 'nav-link c-nav' %>
           </li>
-          <li class="nav-item pl-4 pr-4">
+          <li class='nav-item pl-4 pr-4'>
             <%= link_to 'Sign Up', new_user_registration_path, class: 'nav-link c-nav' %>
           </li>
         <% end %>
