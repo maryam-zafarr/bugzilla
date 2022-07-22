@@ -8,7 +8,7 @@ class Bug < ApplicationRecord
 
   has_one_attached :screenshot, dependent: :destroy
 
-  validates :title, presence: true
+  validates :title, presence: true, uniqueness: true
   validates :bug_type, presence: true
   validates :status, presence: true
   validates :deadline, presence: true
