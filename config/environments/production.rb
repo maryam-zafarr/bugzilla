@@ -19,6 +19,8 @@ Rails.application.configure do
   config.action_mailer.default charset: 'utf-8'
   # Settings specified here will take precedence over those in config/application.rb.
 
+  config.active_storage.service = :cloudinary
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 

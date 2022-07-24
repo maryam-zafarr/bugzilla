@@ -74,4 +74,10 @@ gem 'devise'
 # Supports role-bases authorization
 gem 'pundit'
 
+# Temporary seed data generation
 gem 'seed_dump'
+
+# Cloudinary
+gem 'activestorage-cloudinary-service'
+gem 'cloudinary', require: false
+
