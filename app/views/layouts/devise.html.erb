@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bugzilla</title>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class='wrapper'>
+      <div class='left-container'>
+        <h1>B U G Z I L L A</h1>
+        <p>A &nbsp;  B u g &nbsp;  T r a c k i n g &nbsp;  S y s t e m</p>
+        <%= image_tag 'signup-image.jpg', class: 'signup-img' %>
+      </div>
+      <div class='right-container'>
+        <%= yield %>
+      </div>
+    <div>
+  </body>
+</html>

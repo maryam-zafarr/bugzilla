@@ -1,0 +1,7 @@
+<% if manager? %>
+  <%= render 'manager' %>
+<% elsif developer? %>
+  <%= render 'developer' %>
+<% else %>
+  <%= render 'qa' %>
+<% end %>

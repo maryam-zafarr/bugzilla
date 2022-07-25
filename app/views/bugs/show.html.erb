@@ -1,0 +1,60 @@
+<div class='container project-details mt-4'>
+
+  <div class='row'>
+    <div class='col-7'>
+      <h4><i class='fa fa-bug fa-md'></i> <%= @bug.title %></h4>
+    </div>
+
+    <div class='col-5 text-right'>
+      <% if @bug.assignee == nil && developer? && current_user.in?(@bug.project.users) %>
+        <%= button_to 'Assign to Self', project_bug_assign_path(:bug_id => @bug.id), method: :post, class:'btn btn-outline-info'  %>
+      <% end %>
+
+      <% if @bug.assignee == current_user %>
+        <% if started? && bug? %>
+          <%= render partial: 'statusbutton', locals: {text: 'Mark Resolved'}%>
+        <% elsif started? && feature? %>
+          <%= render partial: 'statusbutton', locals: {text: 'Mark Completed'}%>
+        <% else %>
+          <%= render partial: 'statusbutton', locals: {text: 'Mark Started'}%>
+        <% end%>
+      <% end %>
+
+      <% if @bug.reporter == current_user %>
+        <%= link_to 'Edit Bug', edit_project_bug_path(@bug.project, @bug), class:'btn btn-outline-info'  %>
+        <%= link_to 'Delete Bug', project_bug_path(@bug.project, @bug), method: :delete, data: { confirm: 'Are you sure?' }, class:'btn btn-outline-danger'  %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class='row mt-4 mb-2'>
+    <div class='col-6'>
+      <h5 class='mb-4'><i class='fa fa-list-alt'></i> Bug Details</h5>
+      <p><strong>Type: </strong><span class='badge badge-success'><%= @bug.bug_type %></span></p>
+      <p id='status_show'><strong>Status: </strong><span class='badge badge-warning' id='status-b'><%= @bug.status %></span></p>
+      <p><strong>Deadline: </strong><%= @bug.deadline %></p>
+      <p><strong>Reporter: </strong><%= @bug.reporter.name %></p>
+
+      <% if @bug.assignee %>
+        <p><strong>Assignee: </strong> <%= @bug.assignee.name %></p>
+      <% else %>
+        <p><strong>Assignee: </strong> Pending</p>
+      <% end %>
+
+    </div>
+    <div class='col-6 mt-4 pt-3'>
+      <% if !@bug.description.blank? %>
+        <p><strong>Description: </strong><%= @bug.description %></p>
+      <% end %>
+      <% if @bug.screenshot.attached? %>
+        <p><strong>Screenshot </strong></p>
+        <div style='width: 400px; height:auto'>
+          <%= image_tag(@bug.screenshot, style: 'width: 100%')%>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <%= link_to 'Back', project_bugs_path, class: 'btn btn-dark'%>
+  <br>
+</div>

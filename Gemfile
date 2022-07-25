@@ -73,3 +73,5 @@ gem 'devise'
 
 # Supports role-bases authorization
 gem 'pundit'
+
+gem 'seed_dump'

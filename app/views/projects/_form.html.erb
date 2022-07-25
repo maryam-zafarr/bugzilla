@@ -1,0 +1,25 @@
+<%= form_with model: @project, local:true do |form| %>
+  <div class='mb-4'>
+    <%= form.label :title, class: 'label_f'  %>
+    <%= form.text_field :title, class: 'input_f' %>
+    <%= render partial: 'error', locals: {resource: @project, attribute: :title}%>
+  </div>
+
+  <div class='mb-4'>
+    <%= form.label :description, class: 'label_f' %><br>
+    <%= form.text_area :description, class: 'input_f desc' %>
+    <%= render partial: 'error', locals: {resource: @project, attribute: :description}%>
+  </div>
+
+ <div class='mb-4'>
+    <%= form.label :user_ids, 'Select Team',class: 'label_f' %><br>
+    <%= form.collection_select(:user_ids, User.where.not(user_type: 'Manager'), :id, :name_with_title,  {:include_hidden => false}, {:multiple => true, :style => 'width:75vw'}) %>
+    <span class='error-msg'><%= 'Choose team' if @project.errors[:users].present? %></span>
+  </div>
+
+  <%= form.hidden_field :manager_id , :value=>current_user.id %>
+
+  <div class='mb-4'>
+    <%= form.submit "#{action_name} Project", class: 'btn-warning rounded border-0 p-2 pr-3 pl-3' %>
+  </div>
+<% end %>

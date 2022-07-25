@@ -1,0 +1,46 @@
+<div class='container-fluid mt-4 mr-4 pr-4'>
+  <h3 class='db-title'>QA Dashboard</h3>
+  <div class='row'>
+    <div class='col-6'>
+      <div class='row mt-4 align-items-center'>
+        <div class='col-6'>
+          <h5 class='db-subtitle'>Summary</h5>
+        </div>
+        <div class='col-6'>
+          <%= link_to 'See Assigned Projects >', projects_path, class:'medium float-right' %>
+        </div>
+      </div>
+    </div>
+    <div class='col-6 mt-4'>
+      <%= link_to 'All Projects', all_projects_path, class:'btn btn-success float-right mr-4' %>
+    </div>
+  </div>
+  <div class='row mt-2'>
+    <div class='col-3'>
+      <div class='card l-bg-blue-dark'>
+        <div class='card-statistic-3 p-4'>
+          <div class='c-icon-bg mb-4 mt-2'>
+            <i class='fa fa-pencil fa-md c-icon'></i>
+          </div>
+          <h2 class='d-flex align-items-center mb-2 mt-2'>
+            <%= developer_projects.count.to_s.rjust(2, '0')%>
+          </h2>
+          <h5 class='card-title mb-2 mt-4'>Ongoing Projects</h5>
+        </div>
+      </div>
+    </div>
+    <div class='col-3'>
+      <div class='card l-bg-blue-darker'>
+        <div class='card-statistic-3 p-4'>
+          <div class='c-icon-bg mb-4 mt-2'>
+            <i class='fa fa-bug fa-md c-icon'></i>
+          </div>
+          <h2 class='d-flex align-items-center mb-2 mt-2'>
+            <%= total_reported_bugs %>
+          </h2>
+          <h5 class='card-title mb-2 mt-4'>Total Reported Bugs</h5>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
