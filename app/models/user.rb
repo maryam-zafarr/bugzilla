@@ -11,7 +11,7 @@ class User < ApplicationRecord
 
   has_many :bugs, through: :projects
 
-  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable
+  devise :database_authenticatable, :registerable, :recoverable, :rememberable, :validatable, :timeoutable
 
   def name_with_title
     "#{name} (#{user_type})"

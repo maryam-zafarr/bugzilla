@@ -25,7 +25,6 @@ class BugsController < ApplicationController
 
   def create
     @bug = @project.bugs.create(bug_params)
-
     respond_to do |format|
       if @bug.save
         format.html { redirect_to project_bug_path(@bug.project, @bug), notice: 'Bug was successfully created.' }

@@ -3,6 +3,7 @@
 Rails.application.routes.draw do
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
   get '/all_projects', to: 'projects#all_projects_index', as: 'all_projects'
+
   devise_for :users
   resources :projects do
     resources :bugs do
