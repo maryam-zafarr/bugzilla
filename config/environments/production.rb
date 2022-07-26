@@ -6,8 +6,8 @@ Rails.application.configure do
     address: 'smtp.gmail.com',
     port: 587,
     domain: 'gmail.com',
-    user_name: 'maryam.zafar@devsinc.com',
-    password: 'vrbpidbxceeibqdk',
+    user_name: ENV['devise_email'],
+    password: ENV['devise_password'],
     authentication: 'plain',
     enable_starttls_auto: true
   }

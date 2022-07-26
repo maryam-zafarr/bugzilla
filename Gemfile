@@ -82,3 +82,6 @@ gem 'seed_dump'
 # Cloudinary
 gem 'activestorage-cloudinary-service'
 gem 'cloudinary', require: false
+
+# Figaro
+gem 'figaro'
