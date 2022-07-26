@@ -7,7 +7,7 @@ class BugsController < ApplicationController
   before_action :set_bug_id, only: %i[assign change]
 
   def index
-    if qa? || (current_user).in?(@project.users) || (current_user == @project.manager)
+    if qa? || current_user.in?(@project.users) || (current_user == @project.manager)
       @bugs = @project.bugs
     else
       redirect_to project_path(@project)
@@ -66,20 +66,20 @@ class BugsController < ApplicationController
     authorize @bug
     if @bug.assignee_id.nil?
       assignee = User.find(current_user.id).id
-      @bug.update_column(:assignee_id, assignee)
+      @bug.update(:assignee_id, assignee)
     end
     redirect_back(fallback_location: project_bug_path(@bug.project, @bug))
   end
 
   def change
-    if new?
-      @bug.update_column(:status, 'Started')
-    elsif  started? && bug?
-      @bug.update_column(:status, 'Resolved')
-    elsif  started? && feature?
-      @bug.update_column(:status, 'Completed')
+    if new?(@bug)
+      @bug.update(:status, 'Started')
+    elsif  started?(@bug) && bug?(@bug)
+      @bug.update(:status, 'Resolved')
+    elsif  started?(@bug) && feature?(@bug)
+      @bug.update(:status, 'Completed')
     else
-      @bug.update_column(:status, 'Started')
+      @bug.update(:status, 'Started')
     end
     redirect_back(fallback_location: project_bug_path(@bug.project, @bug))
   end

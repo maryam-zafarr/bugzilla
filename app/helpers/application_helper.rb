@@ -14,27 +14,27 @@ module ApplicationHelper
     current_user.user_type == 'Quality Assurance Engineer'
   end
 
-  def new?
-    @bug.status == 'New'
+  def new?(bug)
+    bug.status == 'New'
   end
 
-  def started?
-    @bug.status == 'Started'
+  def started?(bug)
+    bug.status == 'Started'
   end
 
-  def resolved?
-    @bug.status == 'Resolved'
+  def resolved?(bug)
+    bug.status == 'Resolved'
   end
 
-  def completed?
-    @bug.status == 'Completed'
+  def completed?(bug)
+    bug.status == 'Completed'
   end
 
-  def bug?
-    @bug.bug_type == 'Bug'
+  def bug?(bug)
+    bug.bug_type == 'Bug'
   end
 
-  def feature?
-    @bug.bug_type == 'Feature'
+  def feature?(bug)
+    bug.bug_type == 'Feature'
   end
 end

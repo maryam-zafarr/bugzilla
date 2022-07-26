@@ -24,7 +24,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = current_user.projects.build(project_params)
-    add_to_team if params[:user_ids].present?
+    add_to_team(@project) if params[:user_ids].present?
     authorize @project
     respond_to do |format|
       if @project.save

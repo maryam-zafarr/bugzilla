@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_26_105500) do
+ActiveRecord::Schema.define(version: 2022_07_26_120914) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -37,10 +37,10 @@ ActiveRecord::Schema.define(version: 2022_07_26_105500) do
   end
 
   create_table "bugs", force: :cascade do |t|
-    t.string "title"
-    t.string "bug_type"
-    t.string "status"
-    t.date "deadline"
+    t.string "title", null: false
+    t.string "bug_type", null: false
+    t.string "status", null: false
+    t.date "deadline", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "project_id"
@@ -54,8 +54,8 @@ ActiveRecord::Schema.define(version: 2022_07_26_105500) do
   end
 
   create_table "projects", force: :cascade do |t|
-    t.string "title"
-    t.text "description"
+    t.string "title", null: false
+    t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "manager_id"

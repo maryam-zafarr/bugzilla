@@ -46,6 +46,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
+  # Rubocop-rails
+  gem 'rubocop-rails', require: false
 end
 
 group :development do
@@ -80,4 +82,3 @@ gem 'seed_dump'
 # Cloudinary
 gem 'activestorage-cloudinary-service'
 gem 'cloudinary', require: false
-
