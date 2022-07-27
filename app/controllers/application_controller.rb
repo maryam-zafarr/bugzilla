@@ -4,10 +4,6 @@
 class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
-  def record_not_found
-    render file: "#{Rails.root}/app/views/application/error_404"
-  end
-
   include Pundit
   include ApplicationHelper
 
@@ -15,6 +11,10 @@ class ApplicationController < ActionController::Base
   before_action :configure_permitted_parameters, if: :devise_controller?
 
   protected
+
+  def record_not_found
+    render file: "#{Rails.root}/app/views/application/error_404"
+  end
 
   def configure_permitted_parameters
     devise_parameter_sanitizer.permit(:sign_up, keys: %i[name user_type])
