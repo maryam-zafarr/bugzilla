@@ -2,7 +2,7 @@
 
 # Class for projects model
 class Project < ApplicationRecord
-  validates :title, presence: true
+  validates :title, presence: true, uniqueness: true
   validates :description, presence: true
   validates :users, presence: true
 

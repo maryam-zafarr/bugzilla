@@ -11,15 +11,15 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def show?
-    user == project.manager || user.in?(project.users) || user.user_type == 'Quality Assurance Engineer'
+    user == project.manager || user.in?(project.users) || user.user_type == 'quality_assurance_engineer'
   end
 
   def new?
-    user.user_type == 'Manager'
+    user.user_type == 'manager'
   end
 
   def create?
-    @user.user_type = 'Manager'
+    @user.user_type = 'manager'
   end
 
   def edit?
@@ -32,5 +32,9 @@ class ProjectPolicy < ApplicationPolicy
 
   def destroy?
     user == project.manager
+  end
+
+  def all_projects_index?
+    user.user_type == 'quality_assurance_engineer'
   end
 end

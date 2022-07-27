@@ -3,38 +3,38 @@
 # Helper methods used across the application
 module ApplicationHelper
   def manager?
-    current_user.user_type == 'Manager'
+    current_user.user_type == 'manager'
   end
 
   def developer?
-    current_user.user_type == 'Developer'
+    current_user.user_type == 'developer'
   end
 
   def qa?
-    current_user.user_type == 'Quality Assurance Engineer'
+    current_user.user_type == 'quality_assurance_engineer'
   end
 
-  def new?
-    @bug.status == 'New'
+  def new?(bug)
+    bug.status == 'New'
   end
 
-  def started?
-    @bug.status == 'Started'
+  def started?(bug)
+    bug.status == 'Started'
   end
 
-  def resolved?
-    @bug.status == 'Resolved'
+  def resolved?(bug)
+    bug.status == 'Resolved'
   end
 
-  def completed?
-    @bug.status == 'Completed'
+  def completed?(bug)
+    bug.status == 'Completed'
   end
 
-  def bug?
-    @bug.bug_type == 'Bug'
+  def bug?(bug)
+    bug.bug_type == 'bug'
   end
 
-  def feature?
-    @bug.bug_type == 'Feature'
+  def feature?(bug)
+    bug.bug_type == 'feature'
   end
 end

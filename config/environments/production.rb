@@ -6,8 +6,8 @@ Rails.application.configure do
     address: 'smtp.gmail.com',
     port: 587,
     domain: 'gmail.com',
-    user_name: 'maryam.zafar@devsinc.com',
-    password: 'vrbpidbxceeibqdk',
+    user_name: ENV['devise_email'],
+    password: ENV['devise_password'],
     authentication: 'plain',
     enable_starttls_auto: true
   }
@@ -18,6 +18,8 @@ Rails.application.configure do
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.default charset: 'utf-8'
   # Settings specified here will take precedence over those in config/application.rb.
+
+  config.active_storage.service = :cloudinary
 
   # Code is not reloaded between requests.
   config.cache_classes = true

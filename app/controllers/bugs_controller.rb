@@ -4,67 +4,43 @@
 class BugsController < ApplicationController
   before_action :set_bug, only: %i[edit update destroy show]
   before_action :set_project, only: %i[index new create edit]
+  before_action :initialize_bug, only: :new
   before_action :set_bug_id, only: %i[assign change]
+  before_action :authorize_bug, except: %i[index create]
 
   def index
-    if qa? || (current_user).in?(@project.users) || (current_user == @project.manager)
+    if qa? || current_user.in?(@project.users) || (current_user == @project.manager)
       @bugs = @project.bugs
     else
       redirect_to project_path(@project)
     end
   end
 
-  def show
-    authorize @bug
-  end
-
-  def new
-    @bug = @project.bugs.new
-    authorize @bug
-  end
-
   def create
     @bug = @project.bugs.create(bug_params)
-
-    respond_to do |format|
-      if @bug.save
-        format.html { redirect_to project_bug_path(@bug.project, @bug), notice: 'Bug was successfully created.' }
-        format.json { render :show, status: :created, location: @bug }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @bug.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  def edit
     authorize @bug
+    if @bug.save
+      redirect_to project_bug_path(@bug.project, @bug), notice: 'Bug was successfully created.'
+    else
+      render :new, status: :unprocessable_entity
+    end
   end
 
   def update
     @bug.update(bug_params)
-    authorize @bug
-    respond_to do |format|
-      if @bug.save
-        format.html { redirect_to project_bug_path(@bug.project, @bug), notice: 'Bug was successfully updated.' }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-      end
+    if @bug.save
+      redirect_to project_bug_path(@bug.project, @bug), notice: 'Bug was successfully updated.'
+    else
+      render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
     @bug.destroy
-    authorize @bug
-
-    respond_to do |format|
-      format.html { redirect_to project_bugs_path, notice: 'Bug was sucessfully deleted.' }
-      format.json { head :no_content }
-    end
+    redirect_to project_bugs_path, notice: 'Bug was sucessfully deleted.'
   end
 
   def assign
-    authorize @bug
     if @bug.assignee_id.nil?
       assignee = User.find(current_user.id).id
       @bug.update_column(:assignee_id, assignee)
@@ -73,11 +49,11 @@ class BugsController < ApplicationController
   end
 
   def change
-    if new?
+    if new?(@bug)
       @bug.update_column(:status, 'Started')
-    elsif  started? && bug?
+    elsif  started?(@bug) && bug?(@bug)
       @bug.update_column(:status, 'Resolved')
-    elsif  started? && feature?
+    elsif  started?(@bug) && feature?(@bug)
       @bug.update_column(:status, 'Completed')
     else
       @bug.update_column(:status, 'Started')
@@ -91,12 +67,20 @@ class BugsController < ApplicationController
     @project = Project.find(params[:project_id])
   end
 
+  def initialize_bug
+    @bug = @project.bugs.new
+  end
+
   def set_bug
     @bug = Bug.find(params[:id])
   end
 
   def set_bug_id
     @bug = Bug.find(params[:bug_id])
+  end
+
+  def authorize_bug
+    authorize @bug
   end
 
   def bug_params

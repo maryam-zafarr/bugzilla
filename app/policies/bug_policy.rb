@@ -15,15 +15,15 @@ class BugPolicy < ApplicationPolicy
   end
 
   def show?
-    (user.user_type == 'Quality Assurance Engineer' || user.in?(bug.project.users) || user == bug.project.manager)
+    (user.user_type == 'quality_assurance_engineer' || user.in?(bug.project.users) || user == bug.project.manager)
   end
 
   def new?
-    user.user_type == 'Quality Assurance Engineer'
+    user.user_type == 'quality_assurance_engineer'
   end
 
   def create?
-    user.user_type = 'Quality Assurance Engineer'
+    user.user_type = 'quality_assurance_engineer'
   end
 
   def edit?
@@ -39,6 +39,10 @@ class BugPolicy < ApplicationPolicy
   end
 
   def assign?
-    (user.user_type == 'Developer') && user.in?(bug.project.users)
+    (user.user_type == 'developer') && user.in?(bug.project.users)
+  end
+
+  def change?
+    (user.user_type == 'developer') && user.in?(bug.project.users)
   end
 end

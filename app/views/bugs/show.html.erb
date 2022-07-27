@@ -11,9 +11,9 @@
       <% end %>
 
       <% if @bug.assignee == current_user %>
-        <% if started? && bug? %>
+        <% if started?(@bug) && bug?(@bug) %>
           <%= render partial: 'statusbutton', locals: {text: 'Mark Resolved'}%>
-        <% elsif started? && feature? %>
+        <% elsif started?(@bug) && feature?(@bug) %>
           <%= render partial: 'statusbutton', locals: {text: 'Mark Completed'}%>
         <% else %>
           <%= render partial: 'statusbutton', locals: {text: 'Mark Started'}%>

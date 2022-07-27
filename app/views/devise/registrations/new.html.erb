@@ -16,7 +16,7 @@
 
   <div class='mb-3'>
     <%= f.label :user_type, 'Role' %><br/>
-    <%= f.select(:user_type, ['Manager', 'Developer', 'Quality Assurance Engineer'], {}, class: 'input_field') %>
+    <%= f.select(:user_type, [['Manager', 'manager'], ['Developer', 'developer'], ['Quality Assurance Engineer', 'quality_assurance_engineer']], {}, class: 'input_field') %>
     <%= render partial: 'error', locals: {resource: resource, attribute: :user_type}%>
   </div>
 
