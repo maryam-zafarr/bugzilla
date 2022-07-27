@@ -2,8 +2,9 @@
 
 # Class to perform CRUD operations for projects
 class ProjectsController < ApplicationController
+  before_action :initialize_project, only: :new
   before_action :set_project, only: %i[edit update destroy show]
-  before_action :authorize_project, except: %i[index all_projects_index create new]
+  before_action :authorize_project, except: %i[index all_projects_index create]
 
   def index
     @projects = if manager?
@@ -11,11 +12,6 @@ class ProjectsController < ApplicationController
                 else
                   current_user.projects.distinct
                 end
-  end
-
-  def new
-    @project = current_user.projects.build
-    authorize @project
   end
 
   def create
@@ -51,6 +47,10 @@ class ProjectsController < ApplicationController
 
   def authorize_project
     authorize @project
+  end
+
+  def initialize_project
+    @project = current_user.projects.build
   end
 
   def set_project

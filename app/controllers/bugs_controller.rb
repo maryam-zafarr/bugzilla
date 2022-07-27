@@ -4,8 +4,9 @@
 class BugsController < ApplicationController
   before_action :set_bug, only: %i[edit update destroy show]
   before_action :set_project, only: %i[index new create edit]
+  before_action :initialize_bug, only: :new
   before_action :set_bug_id, only: %i[assign change]
-  before_action :authorize_bug, except: %i[index create new]
+  before_action :authorize_bug, except: %i[index create]
 
   def index
     if qa? || current_user.in?(@project.users) || (current_user == @project.manager)
@@ -13,11 +14,6 @@ class BugsController < ApplicationController
     else
       redirect_to project_path(@project)
     end
-  end
-
-  def new
-    @bug = @project.bugs.new
-    authorize @bug
   end
 
   def create
@@ -69,6 +65,10 @@ class BugsController < ApplicationController
 
   def set_project
     @project = Project.find(params[:project_id])
+  end
+
+  def initialize_bug
+    @bug = @project.bugs.new
   end
 
   def set_bug
