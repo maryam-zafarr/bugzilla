@@ -4,7 +4,7 @@
 class ProjectsController < ApplicationController
   before_action :initialize_project, only: :new
   before_action :set_project, only: %i[edit update destroy show]
-  before_action :authorize_project, except: %i[index all_projects_index create]
+  before_action :authorize_project, except: %i[index create]
 
   def index
     @projects = if manager?

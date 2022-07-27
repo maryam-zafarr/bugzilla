@@ -33,4 +33,8 @@ class ProjectPolicy < ApplicationPolicy
   def destroy?
     user == project.manager
   end
+
+  def all_projects_index?
+    user.user_type == 'quality_assurance_engineer'
+  end
 end
