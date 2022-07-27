@@ -7,7 +7,7 @@
 
   <div class='mb-4'>
     <%= form.label :bug_type, 'Category', class: 'label_f'  %><br>
-    <%= form.select :bug_type, ['Bug','Feature'], {prompt: 'Select'}, {id:'bug_type', class: 'input_f'}%>
+    <%= form.select :bug_type, [['Bug', 'bug'], ['Feature', 'feature']], {prompt: 'Select'}, {id:'bug_type', class: 'input_f'} %>
     <%= render partial: 'error', locals: {resource: @bug, attribute: :bug_type}%>
   </div>
 

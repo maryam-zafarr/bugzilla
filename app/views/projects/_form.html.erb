@@ -13,7 +13,7 @@
 
  <div class='mb-4'>
     <%= form.label :user_ids, 'Select Team',class: 'label_f' %><br>
-    <%= form.collection_select(:user_ids, User.where.not(user_type: 'Manager'), :id, :name_with_title,  {:include_hidden => false}, {:multiple => true, :style => 'width:75vw'}) %>
+    <%= form.collection_select(:user_ids, User.where.not(user_type: 'manager'), :id, :name_with_title,  {:include_hidden => false}, {:multiple => true, :style => 'width:75vw'}) %>
     <span class='error-msg'><%= 'Choose team' if @project.errors[:users].present? %></span>
   </div>
 

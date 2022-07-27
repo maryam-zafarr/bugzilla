@@ -2,6 +2,8 @@
 
 # Class for user bug model
 class User < ApplicationRecord
+  enum user_type: %i[manager developer quality_assurance_engineer]
+
   validates :email, presence: true, uniqueness: true
   validates :name, presence: true
   validates :user_type, presence: true

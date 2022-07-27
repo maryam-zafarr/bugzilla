@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_07_26_120914) do
+ActiveRecord::Schema.define(version: 2022_07_26_195711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,13 +38,13 @@ ActiveRecord::Schema.define(version: 2022_07_26_120914) do
 
   create_table "bugs", force: :cascade do |t|
     t.string "title", null: false
-    t.string "bug_type", null: false
+    t.integer "bug_type", null: false
     t.string "status", null: false
     t.date "deadline", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "project_id"
-    t.bigint "reporter_id"
+    t.bigint "project_id", null: false
+    t.bigint "reporter_id", null: false
     t.bigint "assignee_id"
     t.text "description"
     t.index ["assignee_id"], name: "index_bugs_on_assignee_id"
@@ -58,7 +58,7 @@ ActiveRecord::Schema.define(version: 2022_07_26_120914) do
     t.text "description", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "manager_id"
+    t.bigint "manager_id", null: false
     t.index ["manager_id"], name: "index_projects_on_manager_id"
   end
 
@@ -75,8 +75,8 @@ ActiveRecord::Schema.define(version: 2022_07_26_120914) do
     t.string "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.string "name"
-    t.string "user_type"
+    t.string "name", null: false
+    t.integer "user_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
