@@ -8,8 +8,6 @@ class UsersController < ApplicationController
     @users = User.all
   end
 
-  def show; end
-
   def new
     @user = User.new
   end
@@ -26,8 +24,6 @@ class UsersController < ApplicationController
       end
     end
   end
-
-  def edit; end
 
   def update
     @user.update(user_params)

@@ -13,7 +13,8 @@ class ApplicationController < ActionController::Base
   protected
 
   def record_not_found
-    render file: "#{Rails.root}/app/views/application/error_404"
+    # render file: "#{Rails.root}/app/views/application/error_404"
+    redirect_to dashboard_path, alert: 'Does not exist.'
   end
 
   def configure_permitted_parameters
