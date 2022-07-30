@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before(:all) do
-    @user1 = create(:user)
+    @user1 = create(:user, email: 'ella@example.com')
   end
 
   # Tests for Validations
