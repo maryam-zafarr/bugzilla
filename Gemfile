@@ -48,6 +48,9 @@ group :development, :test do
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   # Rubocop-rails
   gem 'rubocop-rails', require: false
+  # Testing framework
+  gem 'rspec-rails'
+  gem 'factory_bot_rails'
 end
 
 group :development do
@@ -63,6 +66,7 @@ group :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '>= 2.15'
   gem 'webdrivers'
+  gem 'shoulda-matchers', '~> 5.0'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

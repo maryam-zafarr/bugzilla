@@ -10,7 +10,7 @@ class User < ApplicationRecord
 
   has_many :manager_projects, class_name: 'Project', inverse_of: :manager, foreign_key: 'manager_id',
                               dependent: :destroy
-  has_and_belongs_to_many :projects, uniq: true
+  has_and_belongs_to_many :projects
 
   has_many :bugs, through: :projects
 
