@@ -14,23 +14,23 @@ RSpec.describe Project, type: :model do
     end
 
     it 'is not valid without a title' do
-      @project1.title = nil
-      expect(@project1).to_not be_valid
+      project2 = build(:project, title: nil)
+      expect(project2).to_not be_valid
     end
 
     it 'is not valid without a description' do
-      @project1.description = nil
-      expect(@project1).to_not be_valid
+      project2 = build(:project, description: nil)
+      expect(project2).to_not be_valid
     end
 
     it 'is not valid without users' do
-      @project1.users = []
-      expect(@project1).to_not be_valid
+      project2 = build(:project, users: [])
+      expect(project2).to_not be_valid
     end
 
     it 'is not valid without a manager' do
-      @project1.manager_id = nil
-      expect(@project1).to_not be_valid
+      project2 = build(:project, manager_id: nil)
+      expect(project2).to_not be_valid
     end
   end
 

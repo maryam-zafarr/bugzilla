@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
   before(:all) do
-    @user1 = create(:user, email: 'ella@example.com')
+    @user1 = create(:user, email: 'maryam.zafar@devsinc.com')
   end
 
   # Tests for Validations
@@ -14,28 +14,28 @@ RSpec.describe User, type: :model do
     end
 
     it 'is invalid without a unique email' do
-      user2 = build(:user, name: 'Bob')
+      user2 = build(:user, email: 'maryam.zafar@devsinc.com', name: 'Em Z')
       expect(user2).to_not be_valid
     end
 
     it 'is not valid without a name' do
-      @user1.name = nil
-      expect(@user1).to_not be_valid
+      user2 = build(:user, name: nil)
+      expect(user2).to_not be_valid
     end
 
     it 'is not valid without an email' do
-      @user1.email = nil
-      expect(@user1).to_not be_valid
+      user2 = build(:user, email: nil)
+      expect(user2).to_not be_valid
     end
 
     it 'is not valid without a password' do
-      @user1.password = nil
-      expect(@user1).to_not be_valid
+      user2 = build(:user, password: nil)
+      expect(user2).to_not be_valid
     end
 
     it 'is not valid without a user_type' do
-      @user1.user_type = nil
-      expect(@user1).to_not be_valid
+      user2 = build(:user, user_type: nil)
+      expect(user2).to_not be_valid
     end
   end
 

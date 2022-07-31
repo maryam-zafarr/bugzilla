@@ -18,5 +18,14 @@ FactoryBot.define do
   end
 
   factory :bug do
+    title { 'Cart items are duplicating' }
+    bug_type { 'bug' }
+    status { 'New' }
+    deadline { '2022-07-28' }
+    description { 'Whenever an item is added to the cart, the cart shows two of those items.'}
+    screenshot { Rack::Test::UploadedFile.new('spec/support/test_image.png', 'image/png') }
+    association :project, factory: :project
+    association :reporter, factory: :user, name: 'Marilyn Monroe', email: 'marilyn.monroe@example.com', user_type: 'quality_assurance_engineer'
+    association :assignee, factory: :user, name: 'Devin Brook', email: 'devin.brook@example.com', user_type: 'developer'
   end
 end
