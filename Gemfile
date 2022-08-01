@@ -67,6 +67,8 @@ group :test do
   gem 'capybara', '>= 2.15'
   gem 'webdrivers'
   gem 'shoulda-matchers', '~> 5.0'
+  gem 'shoulda-callback-matchers'
+  gem 'rails-controller-testing'
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem

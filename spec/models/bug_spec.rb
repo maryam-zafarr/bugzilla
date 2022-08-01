@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rails_helper'
 
 RSpec.describe Bug, type: :model do
@@ -39,6 +41,16 @@ RSpec.describe Bug, type: :model do
     it 'is valid without a screenshot' do
       bug2 = build(:bug, screenshot: nil)
       expect(bug2).to be_valid
+    end
+
+    it 'is invalid without a project' do
+      bug2 = build(:bug, project_id: nil)
+      expect(bug2).to_not be_valid
+    end
+
+    it 'is invalid without a creator' do
+      bug2 = build(:bug, reporter_id: nil)
+      expect(bug2).to_not be_valid
     end
 
     it 'is invalid without a unique title' do

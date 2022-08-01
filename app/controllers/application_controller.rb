@@ -4,7 +4,7 @@
 class ApplicationController < ActionController::Base
   rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
 
-  include Pundit
+  include Pundit::Authorization
   include ApplicationHelper
 
   before_action :authenticate_user!
