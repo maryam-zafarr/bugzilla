@@ -8,12 +8,12 @@ RSpec.describe 'Bug', type: :request do
     @developer = create(:user, user_type: 'developer', email: Faker::Internet.email )
     @manager = create(:user, user_type: 'manager', email: Faker::Internet.email )
     @manager1 = create(:user, user_type: 'manager', email: Faker::Internet.email )
+    @project = create(:project, manager: @manager, users: [@developer, @qa])
   end
 
   # Testing GET methods
   describe 'GET' do
     before(:all) do
-      @project = create(:project, manager: @manager, users: [@developer, @qa])
       @bug = create(:bug, project: @project, reporter: @qa, assignee: @developer)
     end
 
@@ -48,10 +48,50 @@ RSpec.describe 'Bug', type: :request do
     end
   end
 
+  # Testing POST methods
+  describe 'POST' do
+    it 'creates a new bug with valid attributes' do
+      sign_in @qa
+      expect{
+        post "/projects/#{@project.id}/bugs", params: { bug: { title: 'New Bug Title', bug_type: 'bug', description: 'bbb', status: 'New', deadline: '2022-09-27', assignee_id: nil, reporter_id: @qa.id } }
+      }.to change(Bug, :count).by(1)
+    end
+
+    it 'does not create a bug with invalid attributes' do
+      sign_in @qa
+      post "/projects/#{@project.id}/bugs", params: { bug: { title: nil, bug_type: 'bug', description: 'bbb', status: 'New', deadline: '2022-09-27', assignee_id: nil, reporter_id: @qa.id } }
+      expect(response).to render_template('new')
+    end
+  end
+
+  describe 'PUT' do
+    before(:each) do
+      @bug = create(:bug, project: @project, reporter: @qa, assignee: @developer)
+    end
+
+    it 'updates bug with valid attributes' do
+      sign_in @qa
+      put "/projects/#{@project.id}/bugs/#{@bug.id}", params: { bug: { title: 'Rendering Issue'} }
+      @bug.reload
+      @bug.title.should eq('Rendering Issue')
+    end
+
+    it 'does not update bug with invalid attributes' do
+      sign_in @qa
+      put "/projects/#{@project.id}/bugs/#{@bug.id}", params: { bug: { title: nil } }
+      expect(response).to render_template('edit')
+    end
+
+    it 'redirects to updated bug' do
+      sign_in @qa
+      put "/projects/#{@project.id}/bugs/#{@bug.id}", params: { bug: { title: 'Layout issue'} }
+      response.should redirect_to project_bug_path(@project, @bug)
+    end
+  end
+
   # Testing DELETE methods
   describe 'DELETE' do
     before(:each) do
-      @project = create(:project, manager: @manager, users: [@developer, @qa])
       @bug = create(:bug, project: @project, reporter: @qa, assignee: @developer)
     end
 
@@ -69,15 +109,48 @@ RSpec.describe 'Bug', type: :request do
     end
   end
 
-  # describe 'Assignment' do
-  #   before(:each) do
-  #     @project = create(:project, manager: @manager, users: [@developer, @qa])
-  #     @bug = create(:bug, project: @project, reporter: @qa)
-  #   end
-  #   it 'can assign bug if there is no assignee' do
-  #     sign_in @developer
-  #     @bug.update_column(:assignee_id, @developer.id)
-  #     expect(@bug.reload.assignee_id).to eq(@developer.id)
-  #   end
-  # end
+  # Testing bug assignment to developer
+  describe 'Assignment' do
+    before(:each) do
+      @bug = create(:bug, project: @project, reporter: @qa, assignee: nil)
+    end
+
+    it 'assigns bug if there is no assignee' do
+      sign_in @developer
+      post "/projects/#{@project.id}/bugs/#{@bug.id}/assign", params: { bug: { assignee_id: @developer.id} }
+      @bug.reload
+      expect(@bug.assignee_id).to eq(@developer.id)
+    end
+  end
+
+  # Testing bug status change
+  describe 'Status' do
+    before(:each) do
+      @bug_new = create(:bug, project: @project, reporter: @qa, assignee: @developer, status: 'New')
+      @bug_started = create(:bug, project: @project, reporter: @qa, assignee: @developer, status: 'Started')
+      @feature_started = create(:bug, project: @project, reporter: @qa, assignee: @developer, status: 'Started', bug_type: 'feature')
+    end
+
+    it 'changes to started if new' do
+      sign_in @developer
+      post "/projects/#{@project.id}/bugs/#{@bug_new.id}/change", params: { bug: { status: 'Started' } }
+      @bug_new.reload
+      expect(@bug_new.status).to eq('Started')
+    end
+
+    it 'changes to completed if started and feature' do
+      sign_in @developer
+      post "/projects/#{@project.id}/bugs/#{@feature_started.id}/change", params: { bug: { status: 'Completed' } }
+      @feature_started.reload
+      expect(@feature_started.status).to eq('Completed')
+    end
+
+    it 'changes to resolved if started and bug' do
+      sign_in @developer
+      post "/projects/#{@project.id}/bugs/#{@bug_started.id}/change", params: { bug: { status: 'Resolved' } }
+      @bug_started.reload
+      expect(@bug_started.status).to eq('Resolved')
+    end
+  end
 end
+

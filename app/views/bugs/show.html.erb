@@ -15,8 +15,6 @@
           <%= render partial: 'statusbutton', locals: {text: 'Mark Resolved'}%>
         <% elsif started?(@bug) && feature?(@bug) %>
           <%= render partial: 'statusbutton', locals: {text: 'Mark Completed'}%>
-        <% else %>
-          <%= render partial: 'statusbutton', locals: {text: 'Mark Started'}%>
         <% end%>
       <% end %>
 

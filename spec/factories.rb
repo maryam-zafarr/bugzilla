@@ -9,7 +9,7 @@ FactoryBot.define do
   end
 
   factory :project do
-    title { Faker::App.name }
+    title { Faker::Game.title }
     description { 'This project aims to develop an ecommerce platform' }
     association :manager, factory: :user
     users { [create(:user)] }
