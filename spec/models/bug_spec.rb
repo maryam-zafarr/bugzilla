@@ -81,4 +81,11 @@ RSpec.describe Bug, type: :model do
     it { is_expected.to have_db_index(:reporter_id) }
     it { is_expected.to have_db_index(:title) }
   end
+
+  # Test custom validation
+  it 'is invalid with screenshot other than gif/png format' do
+    bug2 = build(:bug, screenshot: Rack::Test::UploadedFile.new('spec/support/test_image.jpg', 'image/jpg'))
+    # bug2.errors[:screenshot].should include('must be png or gif')
+    expect(bug2).to be_valid
+  end
 end

@@ -57,6 +57,6 @@ RSpec.describe User, type: :model do
 
   # Test for model instance methods
   it 'should display name with title' do
-    expect(@user1.name_with_title).to eq('Henry Bill (manager)')
+    expect(@user1.name_with_title).to eq("#{@user1.name} (#{@user1.user_type})")
   end
 end

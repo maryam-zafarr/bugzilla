@@ -51,6 +51,7 @@ group :development, :test do
   # Testing framework
   gem 'rspec-rails'
   gem 'factory_bot_rails'
+  gem 'faker'
 end
 
 group :development do
@@ -69,6 +70,7 @@ group :test do
   gem 'shoulda-matchers', '~> 5.0'
   gem 'shoulda-callback-matchers'
   gem 'rails-controller-testing'
+  gem 'simplecov', require: false
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
@@ -86,6 +88,8 @@ gem 'seed_dump'
 # Cloudinary
 gem 'activestorage-cloudinary-service'
 gem 'cloudinary', require: false
+
+gem 'active_storage_validations'
 
 # Figaro
 gem 'figaro'

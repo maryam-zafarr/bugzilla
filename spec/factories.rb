@@ -3,22 +3,20 @@
 FactoryBot.define do
   factory :user do
     name { 'Henry Bill' }
-    email { 'henry.bill@example.com' }
+    email { Faker::Internet.email }
     password { '123456' }
     user_type { 'manager' }
   end
 
   factory :project do
-    title { 'Project Neon' }
+    title { Faker::App.name }
     description { 'This project aims to develop an ecommerce platform' }
     association :manager, factory: :user
-    before(:create) do |project|
-      project.users = build_list :user, 1, name: 'John Doe', email: 'john.doe@example.com', user_type: 'developer'
-    end
+    users { [create(:user)] }
   end
 
   factory :bug do
-    title { 'Cart items are duplicating' }
+    title { Faker::App.name }
     bug_type { 'bug' }
     status { 'New' }
     deadline { '2022-07-28' }

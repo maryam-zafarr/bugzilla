@@ -42,8 +42,7 @@ class BugsController < ApplicationController
 
   def assign
     if @bug.assignee_id.nil?
-      assignee = User.find(current_user.id).id
-      @bug.update_column(:assignee_id, assignee)
+      @bug.update_column(:assignee_id, current_user.id)
     end
     redirect_back(fallback_location: project_bug_path(@bug.project, @bug))
   end
