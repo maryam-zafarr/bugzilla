@@ -61,31 +61,30 @@ RSpec.describe Bug, type: :model do
 
   # Tests for Associations
   context 'association tests' do
-    it { is_expected.to belong_to(:project) }
-    it { is_expected.to belong_to(:reporter).class_name('User').with_foreign_key(:reporter_id) }
-    it { is_expected.to belong_to(:assignee).class_name('User').with_foreign_key(:assignee_id).optional }
-    it { is_expected.to have_one_attached(:screenshot) }
+    it { should belong_to(:project) }
+    it { should belong_to(:reporter).class_name('User').with_foreign_key(:reporter_id) }
+    it { should belong_to(:assignee).class_name('User').with_foreign_key(:assignee_id).optional }
+    it { should have_one_attached(:screenshot) }
   end
 
   # Tests for Column Specifications
   context 'column specifications' do
-    it { is_expected.to have_db_column(:title).of_type(:string) }
-    it { is_expected.to have_db_column(:bug_type).of_type(:integer) }
-    it { is_expected.to have_db_column(:status).of_type(:string) }
-    it { is_expected.to have_db_column(:description).of_type(:text) }
-    it { is_expected.to have_db_column(:project_id).of_type(:integer) }
-    it { is_expected.to have_db_column(:reporter_id).of_type(:integer) }
-    it { is_expected.to have_db_column(:assignee_id).of_type(:integer) }
-    it { is_expected.to have_db_index(:assignee_id) }
-    it { is_expected.to have_db_index(:project_id) }
-    it { is_expected.to have_db_index(:reporter_id) }
-    it { is_expected.to have_db_index(:title) }
+    it { should have_db_column(:title).of_type(:string) }
+    it { should have_db_column(:bug_type).of_type(:integer) }
+    it { should have_db_column(:status).of_type(:string) }
+    it { should have_db_column(:description).of_type(:text) }
+    it { should have_db_column(:project_id).of_type(:integer) }
+    it { should have_db_column(:reporter_id).of_type(:integer) }
+    it { should have_db_column(:assignee_id).of_type(:integer) }
+    it { should have_db_index(:assignee_id) }
+    it { should have_db_index(:project_id) }
+    it { should have_db_index(:reporter_id) }
+    it { should have_db_index(:title) }
   end
 
   # Test custom validation
   it 'is invalid with screenshot other than gif/png format' do
     bug2 = build(:bug, screenshot: Rack::Test::UploadedFile.new('spec/support/test_image.jpg', 'image/jpg'))
-    # bug2.errors[:screenshot].should include('must be png or gif')
     expect(bug2).to be_valid
   end
 end

@@ -23,7 +23,7 @@ FactoryBot.define do
     description { 'Whenever an item is added to the cart, the cart shows two of those items.' }
     screenshot { Rack::Test::UploadedFile.new('spec/support/test_image.png', 'image/png') }
     association :project, factory: :project
-    association :reporter, factory: :user, name: 'Marilyn Monroe', email: 'marilyn.monroe@example.com', user_type: 'quality_assurance_engineer'
-    association :assignee, factory: :user, name: 'Devin Brook', email: 'devin.brook@example.com', user_type: 'developer'
+    association :reporter, factory: :user, email: Faker::Internet.email, user_type: 'quality_assurance_engineer'
+    association :assignee, factory: :user, email: Faker::Internet.email, user_type: 'developer'
   end
 end

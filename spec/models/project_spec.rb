@@ -36,16 +36,16 @@ RSpec.describe Project, type: :model do
 
   # Tests for Associations
   context 'association tests' do
-    it { is_expected.to belong_to(:manager).class_name('User').with_foreign_key(:manager_id) }
-    it { is_expected.to have_and_belong_to_many(:users) }
-    it { is_expected.to have_many(:bugs).dependent(:destroy) }
+    it { should belong_to(:manager).class_name('User').with_foreign_key(:manager_id) }
+    it { should have_and_belong_to_many(:users) }
+    it { should have_many(:bugs).dependent(:destroy) }
   end
 
   # Tests for Column Specifications
   context 'column specifications' do
-    it { is_expected.to have_db_column(:title).of_type(:string) }
-    it { is_expected.to have_db_column(:description).of_type(:text) }
-    it { is_expected.to have_db_column(:manager_id).of_type(:integer) }
-    it { is_expected.to have_db_index(:manager_id) }
+    it { should have_db_column(:title).of_type(:string) }
+    it { should have_db_column(:description).of_type(:text) }
+    it { should have_db_column(:manager_id).of_type(:integer) }
+    it { should have_db_index(:manager_id) }
   end
 end

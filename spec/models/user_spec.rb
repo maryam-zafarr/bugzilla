@@ -41,18 +41,18 @@ RSpec.describe User, type: :model do
 
   # Tests for Associations
   context 'association tests' do
-    it { is_expected.to have_many(:manager_projects).class_name('Project').dependent(:destroy) }
-    it { is_expected.to have_and_belong_to_many(:projects) }
-    it { is_expected.to have_many(:bugs).through(:projects) }
+    it { should have_many(:manager_projects).class_name('Project').dependent(:destroy) }
+    it { should have_and_belong_to_many(:projects) }
+    it { should have_many(:bugs).through(:projects) }
   end
 
   # Tests for Column Specifications
   context 'column specifications' do
-    it { is_expected.to have_db_column(:name).of_type(:string) }
-    it { is_expected.to have_db_column(:email).of_type(:string) }
-    it { is_expected.to have_db_column(:encrypted_password).of_type(:string) }
-    it { is_expected.to have_db_column(:user_type).of_type(:integer) }
-    it { is_expected.to have_db_index(:email) }
+    it { should have_db_column(:name).of_type(:string) }
+    it { should have_db_column(:email).of_type(:string) }
+    it { should have_db_column(:encrypted_password).of_type(:string) }
+    it { should have_db_column(:user_type).of_type(:integer) }
+    it { should have_db_index(:email) }
   end
 
   # Test for model instance methods
