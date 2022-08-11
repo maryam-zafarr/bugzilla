@@ -16,7 +16,6 @@ class ProjectsController < ApplicationController
 
   def create
     @project = current_user.projects.build(project_params)
-    add_to_team(@project) if params[:user_ids].present?
     authorize @project
     if @project.save
       redirect_to @project, notice: 'Project was sucessfully created!'

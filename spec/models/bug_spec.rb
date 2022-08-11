@@ -3,14 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe Bug, type: :model do
-  before(:all) do
-    @bug1 = create(:bug, title: 'Test Bug')
-  end
+  let!(:bug1) { create(:bug, title: 'Test Bug') }
 
   # Tests for Validations
   context 'validation tests' do
     it 'is valid with valid attributes' do
-      expect(@bug1).to be_valid
+      expect(bug1).to be_valid
     end
 
     it 'is not valid without a title' do
@@ -87,4 +85,7 @@ RSpec.describe Bug, type: :model do
     bug2 = build(:bug, screenshot: Rack::Test::UploadedFile.new('spec/support/test_image.jpg', 'image/jpg'))
     expect(bug2).to be_valid
   end
+
+  # Test for Enums
+  it { should define_enum_for(:bug_type).with(%i[bug feature]) }
 end

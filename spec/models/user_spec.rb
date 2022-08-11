@@ -3,14 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  before(:all) do
-    @user1 = create(:user, email: 'maryam.zafar@devsinc.com')
-  end
+  let!(:user1) { create(:user, email: 'maryam.zafar@devsinc.com') }
 
   # Tests for Validations
   context 'validation tests' do
     it 'is valid with valid attributes' do
-      expect(@user1).to be_valid
+      expect(user1).to be_valid
     end
 
     it 'is invalid without a unique email' do
@@ -57,6 +55,9 @@ RSpec.describe User, type: :model do
 
   # Test for model instance methods
   it 'should display name with title' do
-    expect(@user1.name_with_title).to eq("#{@user1.name} (#{@user1.user_type})")
+    expect(user1.name_with_title).to eq("#{user1.name} (#{user1.user_type})")
   end
+
+  # Test for Enums
+  it { should define_enum_for(:user_type).with(%i[manager developer quality_assurance_engineer]) }
 end

@@ -3,14 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe Project, type: :model do
-  before(:all) do
-    @project1 = create(:project)
-  end
+  let!(:project1) { create(:project) }
 
   # Tests for Validations
   context 'validation tests' do
     it 'is valid with valid attributes' do
-      expect(@project1).to be_valid
+      expect(project1).to be_valid
     end
 
     it 'is not valid without a title' do
