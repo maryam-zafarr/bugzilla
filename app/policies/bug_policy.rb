@@ -10,10 +10,6 @@ class BugPolicy < ApplicationPolicy
     @bug = bug
   end
 
-  def index?
-    false
-  end
-
   def show?
     (user.user_type == 'quality_assurance_engineer' || user.in?(bug.project.users) || user == bug.project.manager)
   end

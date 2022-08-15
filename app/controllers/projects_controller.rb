@@ -4,7 +4,7 @@
 class ProjectsController < ApplicationController
   before_action :initialize_project, only: :new
   before_action :set_project, only: %i[edit update destroy show]
-  before_action :authorize_project, except: %i[index create]
+  before_action :authorize_project, only: %i[new show edit update destroy]
 
   def index
     @projects = if manager?
@@ -16,7 +16,6 @@ class ProjectsController < ApplicationController
 
   def create
     @project = current_user.projects.build(project_params)
-    add_to_team(@project) if params[:user_ids].present?
     authorize @project
     if @project.save
       redirect_to @project, notice: 'Project was sucessfully created!'
@@ -41,6 +40,7 @@ class ProjectsController < ApplicationController
 
   def all_projects_index
     @projects = Project.all
+    authorize @projects
   end
 
   private

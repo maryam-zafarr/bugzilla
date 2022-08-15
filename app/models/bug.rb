@@ -14,11 +14,5 @@ class Bug < ApplicationRecord
   validates :bug_type, presence: true
   validates :status, presence: true
   validates :deadline, presence: true
-  validate :correct_image_type
-
-  def correct_image_type
-    return unless screenshot.attached? && !screenshot.content_type.in?(%w[image/png image/gif])
-
-    errors.add(:screenshot, 'must be png or gif')
-  end
+  validates :screenshot, content_type: { in: %w(image/png image/gif), message: 'Must be png or gif' }
 end

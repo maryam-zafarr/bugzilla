@@ -22,14 +22,6 @@ module ApplicationHelper
     bug.status == 'Started'
   end
 
-  def resolved?(bug)
-    bug.status == 'Resolved'
-  end
-
-  def completed?(bug)
-    bug.status == 'Completed'
-  end
-
   def bug?(bug)
     bug.bug_type == 'bug'
   end

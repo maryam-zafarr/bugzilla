@@ -1,4 +1,4 @@
-<%= form_with model: [@project, @bug], local: true do |form| %>
+<%= form_with model: [@bug.project, @bug], local: true do |form| %>
   <div class='mb-4'>
     <%= form.label :title, class: 'label_f'  %><br>
     <%= form.text_field :title, class: 'input_f' %>

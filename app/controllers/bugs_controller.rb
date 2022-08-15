@@ -42,22 +42,21 @@ class BugsController < ApplicationController
 
   def assign
     if @bug.assignee_id.nil?
-      assignee = User.find(current_user.id).id
-      @bug.update_column(:assignee_id, assignee)
+      @bug.assignee_id = current_user.id
+      @bug.save
     end
     redirect_back(fallback_location: project_bug_path(@bug.project, @bug))
   end
 
   def change
     if new?(@bug)
-      @bug.update_column(:status, 'Started')
+      @bug.status = 'Started'
     elsif  started?(@bug) && bug?(@bug)
-      @bug.update_column(:status, 'Resolved')
+      @bug.status = 'Resolved'
     elsif  started?(@bug) && feature?(@bug)
-      @bug.update_column(:status, 'Completed')
-    else
-      @bug.update_column(:status, 'Started')
+      @bug.status = 'Completed'
     end
+    @bug.save
     redirect_back(fallback_location: project_bug_path(@bug.project, @bug))
   end
 
