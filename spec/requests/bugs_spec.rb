@@ -6,7 +6,6 @@ RSpec.describe 'Bug', type: :request do
   let!(:qa) { create(:user, user_type: 'quality_assurance_engineer', email: Faker::Internet.email) }
   let!(:developer) { create(:user, user_type: 'developer', email: Faker::Internet.email) }
   let!(:manager) { create(:user, user_type: 'manager', email: Faker::Internet.email) }
-  let!(:manager1) { create(:user, user_type: 'manager', email: Faker::Internet.email) }
   let!(:project) { create(:project, manager: manager, users: [developer, qa]) }
   let(:bug) { create(:bug, project: project, reporter: qa, assignee: developer) }
 
@@ -20,7 +19,8 @@ RSpec.describe 'Bug', type: :request do
     end
 
     it 'cannot view bugs of projects he does not own or isnt part of' do
-      sign_in manager1
+      @manager1 = create(:user, user_type: 'manager', email: Faker::Internet.email)
+      sign_in @manager1
       get project_bugs_path(project)
       expect(response).to redirect_to project_path(project)
       expect(response).to have_http_status(:redirect)
@@ -56,9 +56,9 @@ RSpec.describe 'Bug', type: :request do
     end
     it 'creates a new bug with valid attributes' do
       expect {
-        post project_bugs_path(project.id), params: { bug: { title: Faker::Verb.base, bug_type: 'bug', description: Faker::Lorem.sentence,
-                                                              status: 'New', deadline: '2022-09-27', assignee_id: nil,
-                                                              reporter_id: qa.id } }
+        post project_bugs_path(project.id), params: { bug: { title: Faker::Verb.base, bug_type: 'bug', status: 'New',
+                                                             description: Faker::Lorem.sentence, deadline: '2022-09-27',
+                                                             assignee_id: nil, reporter_id: qa.id } }
       }.to change(Bug, :count).by(1)
       expect(assigns(:bug)).to eq(Bug.last)
       expect(response).to have_http_status(:redirect)
@@ -66,9 +66,9 @@ RSpec.describe 'Bug', type: :request do
     end
 
     it 'does not create a bug with invalid attributes' do
-      post project_bugs_path(project.id), params: { bug: { title: nil, bug_type: 'bug', description: Faker::Lorem.sentence,
-                                                            status: 'New', deadline: '2022-09-27', assignee_id: nil,
-                                                            reporter_id: qa.id } }
+      post project_bugs_path(project.id), params: { bug: { title: nil, bug_type: 'bug', status: 'New',
+                                                           description: Faker::Lorem.sentence, deadline: '2022-09-27',
+                                                           assignee_id: nil, reporter_id: qa.id } }
       expect(response).to render_template('new')
       expect(response).to have_http_status(:unprocessable_entity)
     end
