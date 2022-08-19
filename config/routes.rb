@@ -1,6 +1,17 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  namespace :api, defaults: { format: 'json' } do
+    namespace :v1 do
+      resources :projects do
+        resources :bugs do
+          post 'assign'
+          post 'change'
+        end
+      end
+    end
+  end
+
   get '/dashboard', to: 'dashboard#index', as: 'dashboard'
   get '/all_projects', to: 'projects#all_projects_index', as: 'all_projects'
 
