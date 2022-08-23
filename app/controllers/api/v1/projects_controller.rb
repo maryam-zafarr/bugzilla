@@ -6,24 +6,19 @@ module Api
     class ProjectsController < ApplicationController
       before_action :initialize_project, only: :new
       before_action :set_project, only: %i[edit update destroy show]
-      before_action :authorize_project, only: %i[new show edit update destroy]
+      skip_before_action :verify_authenticity_token
 
       def index
-        @projects = if manager?
-                      @projects = Project.where(manager_id: current_user.id)
-                    else
-                      current_user.projects.distinct
-                    end
-        render json: @projects
+        @projects = Project.all
+        render json: @projects.to_json(include: %i[manager users bugs])
       end
 
       def show
-        render json: @project
+        render json: @project.to_json(include: %i[manager users bugs])
       end
 
       def create
         @project = current_user.projects.build(project_params)
-        authorize @project
         if @project.save
           render json: @project
         else
@@ -46,15 +41,10 @@ module Api
 
       def all_projects_index
         @projects = Project.all
-        authorize @projects
         render json: @projects
       end
 
       private
-
-      def authorize_project
-        authorize @project
-      end
 
       def initialize_project
         @project = current_user.projects.build

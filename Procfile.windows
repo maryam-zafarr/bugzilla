@@ -1,2 +1,2 @@
-web: PORT=4000 npm --cwd bugzilla-client start
-api: PORT=3000 bundle exec rails server
+api: bundle exec rails server –p 3000
+web: npm --cwd bugzilla-client start

@@ -8,28 +8,22 @@ module Api
       before_action :set_project, only: %i[index new create edit]
       before_action :initialize_bug, only: :new
       before_action :set_bug_id, only: %i[assign change]
-      before_action :authorize_bug, except: %i[index create]
 
       def index
-        if qa? || current_user.in?(@project.users) || (current_user == @project.manager)
-          @bugs = @project.bugs
-          render json: @bugs
-        else
-          render json: { error: 'You are not authorized to do so.' }
-        end
+        @bugs = @project.bugs
+        render json: @bugs.to_json(include: %i[reporter assignee])
       end
 
       def show
         if !@bug.screenshot.attached?
-          render json: @bug
+          render json: @bug.as_json(include: %i[reporter assignee project])
         else
-          render json: @bug.as_json.merge(screenshot_path: url_for(@bug.screenshot))
+          render json: @bug.as_json(include: %i[reporter assignee project]).merge(screenshot_path: url_for(@bug.screenshot))
         end
       end
 
       def create
         @bug = @project.bugs.create(bug_params)
-        authorize @bug
         if @bug.save
           render json: @bug
         else
@@ -86,10 +80,6 @@ module Api
 
       def set_bug_id
         @bug = Bug.find(params[:bug_id])
-      end
-
-      def authorize_bug
-        authorize @bug
       end
 
       def bug_params
