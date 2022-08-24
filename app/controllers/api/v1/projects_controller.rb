@@ -39,11 +39,6 @@ module Api
         @project.destroy
       end
 
-      def all_projects_index
-        @projects = Project.all
-        render json: @projects
-      end
-
       private
 
       def initialize_project

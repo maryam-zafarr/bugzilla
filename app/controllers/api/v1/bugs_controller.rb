@@ -8,6 +8,7 @@ module Api
       before_action :set_project, only: %i[index new create edit]
       before_action :initialize_bug, only: :new
       before_action :set_bug_id, only: %i[assign change]
+      skip_before_action :verify_authenticity_token
 
       def index
         @bugs = @project.bugs
@@ -18,7 +19,8 @@ module Api
         if !@bug.screenshot.attached?
           render json: @bug.as_json(include: %i[reporter assignee project])
         else
-          render json: @bug.as_json(include: %i[reporter assignee project]).merge(screenshot_path: url_for(@bug.screenshot))
+          render json: @bug.as_json(include: %i[reporter assignee project]).merge(screenshot_path:
+            url_for(@bug.screenshot))
         end
       end
 
