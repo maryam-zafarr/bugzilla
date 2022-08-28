@@ -6,15 +6,14 @@ module Api
     class ProjectsController < ApplicationController
       before_action :initialize_project, only: :new
       before_action :set_project, only: %i[edit update destroy show]
-      skip_before_action :verify_authenticity_token
 
       def index
         @projects = Project.all
-        render json: @projects.to_json(include: %i[manager users bugs])
+        render_json(@projects)
       end
 
       def show
-        render json: @project.to_json(include: %i[manager users bugs])
+        render_json(@project)
       end
 
       def create
@@ -37,9 +36,18 @@ module Api
 
       def destroy
         @project.destroy
+        if @project.errors.any?
+          render json: { error: 'Unable to delete this project.' }
+        else
+          render json: { message: 'Project is successfully deleted' }
+        end
       end
 
       private
+
+      def render_json(object)
+        render json: object.to_json(include: %i[manager users bugs])
+      end
 
       def initialize_project
         @project = current_user.projects.build

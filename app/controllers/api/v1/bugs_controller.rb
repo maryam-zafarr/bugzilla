@@ -7,20 +7,17 @@ module Api
       before_action :set_bug, only: %i[edit update destroy show]
       before_action :set_project, only: %i[index new create edit]
       before_action :initialize_bug, only: :new
-      before_action :set_bug_id, only: %i[assign change]
-      skip_before_action :verify_authenticity_token
 
       def index
         @bugs = @project.bugs
-        render json: @bugs.to_json(include: %i[reporter assignee])
+        render_json(@bugs)
       end
 
       def show
         if !@bug.screenshot.attached?
-          render json: @bug.as_json(include: %i[reporter assignee project])
+          render_json(@bug)
         else
-          render json: @bug.as_json(include: %i[reporter assignee project]).merge(screenshot_path:
-            url_for(@bug.screenshot))
+          render json: @bug.as_json(include: %i[reporter assignee project screenshot])
         end
       end
 
@@ -44,29 +41,18 @@ module Api
 
       def destroy
         @bug.destroy
-      end
-
-      def assign
-        if @bug.assignee_id.nil?
-          @bug.assignee_id = current_user.id
-          @bug.save
+        if @bug.errors.any?
+          render json: { error: 'Unable to delete this bug.' }
+        else
+          render json: { message: 'Bug is successfully deleted' }
         end
-        render json: @bug
-      end
-
-      def change
-        if new?(@bug)
-          @bug.status = 'Started'
-        elsif  started?(@bug) && bug?(@bug)
-          @bug.status = 'Resolved'
-        elsif  started?(@bug) && feature?(@bug)
-          @bug.status = 'Completed'
-        end
-        @bug.save
-        render json: @bug
       end
 
       private
+
+      def render_json(object)
+        render json: object.as_json(include: %i[reporter assignee project])
+      end
 
       def set_project
         @project = Project.find(params[:project_id])
@@ -78,10 +64,6 @@ module Api
 
       def set_bug
         @bug = Bug.find(params[:id])
-      end
-
-      def set_bug_id
-        @bug = Bug.find(params[:bug_id])
       end
 
       def bug_params
