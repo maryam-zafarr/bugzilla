@@ -93,5 +93,3 @@ gem 'active_storage_validations'
 
 # Figaro
 gem 'figaro'
-
-gem 'rack-cors'

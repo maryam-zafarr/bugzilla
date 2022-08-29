@@ -2,15 +2,18 @@
 
 # Application Controller lass
 class ApplicationController < ActionController::Base
+  rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
   include Pundit::Authorization
   include ApplicationHelper
 
+  before_action :authenticate_user!
   before_action :configure_permitted_parameters, if: :devise_controller?
-  protect_from_forgery with: :null_session
 
   protected
 
   def record_not_found
+    # render file: "#{Rails.root}/app/views/application/error_404"
     redirect_to dashboard_path, alert: 'Does not exist.'
   end
 
